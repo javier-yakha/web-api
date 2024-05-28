@@ -3,7 +3,7 @@
     "http": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "weatherforecast",
+      "launchUrl": "test/json",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
@@ -13,7 +13,7 @@
     "https": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "weatherforecast",
+      "launchUrl": "test/json",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
@@ -25,6 +25,7 @@
       "launchBrowser": true,
       "launchUrl": "test/json",
       "environmentVariables": {
+        "SQL_CONNECTION_STRING": "Data Source=DESKTOP-SIE9983;Initial Catalog=db_neighborhood;Integrated Security=True;Persist Security Info=False;Pooling=False;Multiple Active Result Sets=False;Connect Timeout=60;Encrypt=True;Trust Server Certificate=True;Command Timeout=0",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }

@@ -1,34 +1,9 @@
-﻿namespace neighborhood_api.Models
+﻿using neighborhood_api.Models.Enums;
+
+namespace neighborhood_api.Models
 {
     public class Complaint
     {
-        public enum Status
-        {
-            None,
-            Active,
-            Resolved,
-            Cancelled
-        }
-        public enum Locations
-        {
-            None,
-            TowerA,
-            TowerB,
-            TowerC,
-            Parking,
-            Garden,
-            Other
-        }
-        public enum Categories
-        {
-            None,
-            Noise,
-            Animals,
-            Children,
-            Maintenance,
-            Parking,
-            Other
-        }
         public string Id { get; set; }
         public string PersonName { get; set; }
         public string PersonApartmentCode { get; set; }

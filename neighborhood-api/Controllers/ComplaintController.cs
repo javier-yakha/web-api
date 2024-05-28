@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json.Nodes;
 using neighborhood_api.Models;
+using neighborhood_api.Models.Enums;
 
 namespace neighborhood_api.Controllers
 {
