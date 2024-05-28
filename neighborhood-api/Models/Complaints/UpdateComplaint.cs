@@ -1,8 +1,6 @@
-﻿using neighborhood_api.Models.Enums;
-
-namespace neighborhood_api.Models
+﻿namespace neighborhood_api.Models.Complaints
 {
-    public class Complaint
+    public class UpdateComplaint
     {
         public string Id { get; set; }
         public string PersonName { get; set; }
@@ -10,9 +8,6 @@ namespace neighborhood_api.Models
         public Locations Location { get; set; }
         public Categories Category { get; set; }
         public string Description { get; set; }
-        public Status CurrentStatus { get; set; }
-        public DateTime DateActivated { get; set; }
-        public DateTime? DateDeActivated { get; set; }
-
+        
     }
 }

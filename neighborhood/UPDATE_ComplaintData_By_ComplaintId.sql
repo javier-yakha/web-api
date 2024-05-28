@@ -4,8 +4,7 @@
 	@PersonApartmentCode nvarchar(50),
 	@Location int,
 	@Category int,
-	@Description nvarchar(MAX),
-	@Status int
+	@Description nvarchar(MAX)
 AS
 	UPDATE Complaints
 	SET 
@@ -13,7 +12,6 @@ AS
 		PersonApartmentCode = @PersonApartmentCode,
 		Location = @Location,
 		Category = @Category,
-		Description = @Description,
-		Status = @Status
+		Description = @Description
 	WHERE Id = @Id
 RETURN 0

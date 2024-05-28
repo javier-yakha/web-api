@@ -3,13 +3,15 @@
 	@PersonApartmentCode nvarchar(50),
 	@Location int,
 	@Category int,
-	@Description nvarchar(MAX)
+	@Description nvarchar(MAX),
+	@OutputId uniqueidentifier OUT
 AS
+	SET @OutputId = NEWID();
 	INSERT INTO Complaints
 		(Id, PersonName, PersonApartmentCode,
 		Location, Category, Description,
 		Status, DateActivated)
-	VALUES (NEWID(), @PersonName, @PersonApartmentCode,
+	VALUES (@OutputId, @PersonName, @PersonApartmentCode,
 		@Location, @Category, @Description,
 		1, SYSUTCDATETIME())
-RETURN 0
+RETURN

@@ -1,6 +1,4 @@
-﻿using neighborhood_api.Models.Enums;
-
-namespace neighborhood_api;
+﻿namespace neighborhood_api.Models.Complaints;
 
 public class CreateComplaint
 {

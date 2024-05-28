@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Text.Json.Nodes;
-using neighborhood_api.Models;
-using neighborhood_api.Models.Enums;
+﻿using System.Text.Json.Nodes;
+using Microsoft.AspNetCore.Mvc;
 using neighborhood_api.DataServices;
+using neighborhood_api.Models.Complaints;
+using neighborhood_api.Models;
 
 namespace neighborhood_api.Controllers
 {
@@ -23,8 +23,10 @@ namespace neighborhood_api.Controllers
 
         [Route("complaint/create")]
         [HttpPost]
-        public async Task<bool> CreateNewComplaint([FromBody]CreateComplaint requestBody, [FromServices]ComplaintService complaintService)
+        public async Task<JsonResult> CreateNewComplaint([FromBody]CreateComplaint requestBody, [FromServices]ComplaintService complaintService)
         {
+            Dictionary<string, string> result = new Dictionary<string, string>(2);
+
             CreateComplaint complaint = new()
             {
                 PersonName = requestBody.PersonName,
@@ -33,28 +35,44 @@ namespace neighborhood_api.Controllers
                 Category = requestBody.Category,
                 Description = requestBody.Description,
             };
-            
-            return await complaintService.CreateNewComplaintAsync(complaint);
+
+            string resp = await complaintService.CreateNewComplaintAsync(complaint);
+
+            if (string.IsNullOrEmpty(resp))
+            {
+                result.Add("status", "insertion failed");
+                result.Add("complaint Id", "");
+                return Json(result);
+            }
+
+            result.Add("status", "success");
+            result.Add("complaint Id", resp);
+
+            return Json(result);
         }
 
-        [Route("complaint/get")]
-        [HttpGet]
-        public async Task<JsonResult> ComplaintGet()
+        [Route("complaint/update")]
+        [HttpPost]
+        public async Task<JsonResult> UpdateComplaintDataByComplaintId([FromBody]UpdateComplaint requestBody, [FromServices]ComplaintService complaintService)
         {
-            Complaint complaint = new()
+            Dictionary<string, string> result = new(2);
+
+            UpdateComplaint complaint = new()
             {
-                Id = Guid.NewGuid().ToString(),
-                PersonName = "Angry Person",
-                PersonApartmentCode = "32A",
-                Location = Locations.Garden,
-                Category = Categories.Noise,
-                Description = "People having too much fun",
-                CurrentStatus = Status.Active,
-                DateActivated = DateTime.Now,
-                DateDeActivated = null
+                Id = requestBody.Id,
+                PersonName = requestBody.PersonName,
+                PersonApartmentCode = requestBody.PersonApartmentCode,
+                Location = requestBody.Location,
+                Category = requestBody.Category,
+                Description = requestBody.Description,
             };
 
-            return Json(complaint);
+            bool status = await complaintService.UpdateComplaintDataByComplaintId(complaint);
+
+            result.Add("complaint Id", $"{complaint.Id}");
+            result.Add("status", status ? "success" : "update failed");
+
+            return Json(result);
         }
     }
 }

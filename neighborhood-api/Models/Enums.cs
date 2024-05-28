@@ -1,4 +1,4 @@
-﻿namespace neighborhood_api.Models.Enums
+﻿namespace neighborhood_api.Models
 {
     public enum Status
     {
