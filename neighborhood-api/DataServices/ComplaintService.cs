@@ -18,7 +18,7 @@ namespace neighborhood_api.DataServices
             sqlConnection.Close();
         }
 
-        public async Task<bool> CreateNewComplaintAsync(Complaint complaint)
+        public async Task<bool> CreateNewComplaintAsync(CreateComplaint complaint)
         {
             try
             {

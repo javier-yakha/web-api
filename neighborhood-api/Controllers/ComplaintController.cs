@@ -21,25 +21,20 @@ namespace neighborhood_api.Controllers
             return "test string";
         }
 
-        [Route("complaint/post")]
+        [Route("complaint/create")]
         [HttpPost]
-        public async Task<Complaint> FirstPost([FromBody]Complaint requestBody, [FromServices]ComplaintService complaintService)
+        public async Task<bool> CreateNewComplaint([FromBody]CreateComplaint requestBody, [FromServices]ComplaintService complaintService)
         {
-            
-            Complaint complaint = new()
+            CreateComplaint complaint = new()
             {
-                Id = requestBody.Id,
                 PersonName = requestBody.PersonName,
                 PersonApartmentCode = requestBody.PersonApartmentCode,
                 Location = requestBody.Location,
                 Category = requestBody.Category,
                 Description = requestBody.Description,
-                CurrentStatus = requestBody.CurrentStatus,
-                DateActivated = DateTime.Now,
-                DateDeActivated = null
             };
-
-            return complaint;
+            
+            return await complaintService.CreateNewComplaintAsync(complaint);
         }
 
         [Route("complaint/get")]
