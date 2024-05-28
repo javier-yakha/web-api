@@ -51,7 +51,7 @@ namespace neighborhood_api.Controllers
             return Json(result);
         }
 
-        [Route("complaint/update")]
+        [Route("complaint/update/data")]
         [HttpPost]
         public async Task<JsonResult> UpdateComplaintDataByComplaintId([FromBody]UpdateComplaint requestBody, [FromServices]ComplaintService complaintService)
         {
@@ -71,6 +71,34 @@ namespace neighborhood_api.Controllers
 
             result.Add("complaint Id", $"{complaint.Id}");
             result.Add("status", status ? "success" : "update failed");
+
+            return Json(result);
+        }
+
+        [Route("complaint/update/status")]
+        [HttpPost]
+        public async Task<JsonResult> UpdateComplaintStatusByComplaintId([FromBody]UpdateComplaintStatus requestBody, [FromServices]ComplaintService complaintService)
+        {
+            Dictionary<string, string> result = new(2);
+
+            UpdateComplaintStatus complaint = new()
+            {
+                Id = requestBody.Id,
+                CurrentStatus = (Status)requestBody.CurrentStatus
+            };
+
+            var resp = await complaintService.UpdateComplaintStatusByComplaintId(complaint);
+
+            
+            if (!resp.Item1 || resp.Item2 is null)
+            {
+                result.Add("status", "update failed");
+
+                return Json(result);
+            }
+
+            result.Add("status", "success");
+            result.Add("date deactivated", resp.Item2.ToString());
 
             return Json(result);
         }

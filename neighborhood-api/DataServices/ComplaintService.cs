@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Globalization;
 using Microsoft.Data.SqlClient;
 using neighborhood_api.Models;
 using neighborhood_api.Models.Complaints;
@@ -40,7 +41,7 @@ namespace neighborhood_api.DataServices
 
                 await cmd.ExecuteScalarAsync();
 
-                string? outputIdString = cmd.Parameters["@OutputId"].Value.ToString();
+                string? outputIdString = cmd.Parameters[parameterName: "@OutputId"].Value.ToString();
 
                 return outputIdString ?? string.Empty;
             }
@@ -87,6 +88,45 @@ namespace neighborhood_api.DataServices
                 Console.WriteLine(e.Message);
 
                 return false;
+            }
+        }
+
+        public async Task<(bool, DateTime?)> UpdateComplaintStatusByComplaintId(UpdateComplaintStatus complaint)
+        {
+            try
+            {
+                SqlCommand cmd = new SqlCommand("UPDATE_ComplaintStatus_By_ComplaintId", sqlConnection);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SqlParameter outputDate = new("@OutputDateDeActivated", SqlDbType.DateTime);
+                outputDate.Direction = ParameterDirection.Output;
+
+                cmd.Parameters.AddWithValue("@Id", complaint.Id);
+                cmd.Parameters.AddWithValue("@Status", (int)complaint.CurrentStatus);
+                cmd.Parameters.Add(outputDate);
+
+                int rowsAffected = await cmd.ExecuteNonQueryAsync();
+
+                if (rowsAffected > 0)
+                {
+                    DateTime outputDateResponse = (DateTime)cmd.Parameters[parameterName: "@OutputDateDeActivated"].Value;
+
+                    return (true, outputDateResponse.ToUniversalTime());
+                }
+
+                return (false, null);
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+
+                return (false, null);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+
+                return (false, null);
             }
         }
     }
