@@ -12,7 +12,7 @@
         public enum Locations
         {
             None,
-            TowerA,  
+            TowerA,
             TowerB,
             TowerC,
             Parking,
