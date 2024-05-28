@@ -7,4 +7,8 @@
     <RootNamespace>neighborhood_api</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
+  </ItemGroup>
+
 </Project>

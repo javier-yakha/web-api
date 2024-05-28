@@ -2,6 +2,7 @@
 using System.Text.Json.Nodes;
 using neighborhood_api.Models;
 using neighborhood_api.Models.Enums;
+using neighborhood_api.DataServices;
 
 namespace neighborhood_api.Controllers
 {
@@ -22,8 +23,9 @@ namespace neighborhood_api.Controllers
 
         [Route("complaint/post")]
         [HttpPost]
-        public async Task<Complaint> FirstPost([FromBody]Complaint requestBody)
+        public async Task<Complaint> FirstPost([FromBody]Complaint requestBody, [FromServices]ComplaintService complaintService)
         {
+            
             Complaint complaint = new()
             {
                 Id = requestBody.Id,

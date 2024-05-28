@@ -1,12 +1,9 @@
 ﻿CREATE PROCEDURE [dbo].[CREATE_Complaint]
-	@Id uniqueidentifier,
 	@PersonName nvarchar(50),
 	@PersonApartmentCode nvarchar(50),
 	@Location int,
 	@Category int,
-	@Description nvarchar(MAX),
-	@Status int,
-	@DateActivated datetime
+	@Description nvarchar(MAX)
 AS
 	INSERT INTO Complaints
 		(Id, PersonName, PersonApartmentCode,
@@ -14,5 +11,5 @@ AS
 		Status, DateActivated)
 	VALUES (NEWID(), @PersonName, @PersonApartmentCode,
 		@Location, @Category, @Description,
-		@Status, SYSUTCDATETIME())
+		1, SYSUTCDATETIME())
 RETURN 0
