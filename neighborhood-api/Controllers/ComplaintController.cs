@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json.Nodes;
 using neighborhood_api.Models;
-using static neighborhood_api.Models.Complaint;
 
 namespace neighborhood_api.Controllers
 {
