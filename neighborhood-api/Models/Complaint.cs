@@ -2,22 +2,27 @@
 {
     public class Complaint
     {
-        public enum ComplaintStatus
+        public enum Status
         {
+            None,
             Active,
             Resolved,
             Cancelled
         }
-        public enum ApartmentLocations
+        public enum Locations
         {
-            TowerA,
+            None,
+            TowerA,  
             TowerB,
             TowerC,
             Parking,
-            Garden
+            Garden,
+            Other
         }
-        public enum ComplaintCategories
+        public enum Categories
         {
+            None,
+            Noise,
             Animals,
             Children,
             Maintenance,
@@ -25,13 +30,14 @@
             Other
         }
         public string Id { get; set; }
-        public string IssuerName { get; set; }
-        public int IssuerApartmentNumber { get; set; }
-        public ApartmentLocations Location { get; set; }
+        public string PersonName { get; set; }
+        public string PersonApartmentCode { get; set; }
+        public Locations Location { get; set; }
+        public Categories Category { get; set; }
         public string Description { get; set; }
-        public ComplaintStatus Status { get; set; }
+        public Status CurrentStatus { get; set; }
         public DateTime DateActivated { get; set; }
-        public DateTime DateDeActivated { get; set; }
+        public DateTime? DateDeActivated { get; set; }
 
     }
 }

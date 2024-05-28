@@ -1,0 +1,16 @@
+﻿1
+
+Assignment
+Neighborhood complaint registry system (API)
+Desired Endpoints
+- Create new complaint.
+- Update complaint data
+- Set complain from pending to active, resolved, cancelled
+- Retrieve all complaints by date
+- Search complaints by name
+Data for complaint
+Person who complains and they building with apartment.
+Then description of the probable, and 
+	the location of it (building apartment).
+With that there should be different categories:
+	animals, children, maintenance, parking.

@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleClient", "ConsoleCli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "neighborhood-api", "neighborhood-api\neighborhood-api.csproj", "{FF51B2B4-E704-46BD-AA2D-2F1D90D4736A}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "neighborhood", "neighborhood\neighborhood.sqlproj", "{1C7CB257-EC3C-4B1D-82CC-160F1572A9F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,12 @@ Global
 		{FF51B2B4-E704-46BD-AA2D-2F1D90D4736A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF51B2B4-E704-46BD-AA2D-2F1D90D4736A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF51B2B4-E704-46BD-AA2D-2F1D90D4736A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C7CB257-EC3C-4B1D-82CC-160F1572A9F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C7CB257-EC3C-4B1D-82CC-160F1572A9F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C7CB257-EC3C-4B1D-82CC-160F1572A9F3}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{1C7CB257-EC3C-4B1D-82CC-160F1572A9F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C7CB257-EC3C-4B1D-82CC-160F1572A9F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C7CB257-EC3C-4B1D-82CC-160F1572A9F3}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
