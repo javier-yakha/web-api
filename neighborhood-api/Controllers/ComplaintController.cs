@@ -6,6 +6,17 @@ namespace neighborhood_api.Controllers
 {
     public class ComplaintController : Controller
     {
+        [Route("test/json")]
+        [HttpGet]
+        public async Task<Responses.Status> TestHttpConnection()
+        {
+            return new Responses.Status()
+            {
+                Code = 200,
+                Message = "Connection Established"
+            };
+        }
+
         [Route("complaint/create")]
         [HttpPost]
         public async Task<Responses.CreateComplaintStatus> CreateNewComplaintAsync([FromBody]Requests.CreateComplaint requestBody, [FromServices]ComplaintService complaintService)

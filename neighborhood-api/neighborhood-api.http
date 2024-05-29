@@ -1,6 +1,6 @@
 @neighborhood_api_HostAddress = http://localhost:5262
 
-GET {{neighborhood_api_HostAddress}}/weatherforecast/
+GET {{neighborhood_api_HostAddress}}/
 Accept: application/json
 
 ###
