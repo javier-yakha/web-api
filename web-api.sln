@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "math-api", "web-api\math-api.csproj", "{14B7109A-273D-4F47-92BB-61F3155326DA}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleClient", "ConsoleClient\ConsoleClient.csproj", "{8F163DF0-9098-4F1B-9766-35197ED0D5C7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "neighborhood-api", "neighborhood-api\neighborhood-api.csproj", "{FF51B2B4-E704-46BD-AA2D-2F1D90D4736A}"
@@ -17,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{14B7109A-273D-4F47-92BB-61F3155326DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{14B7109A-273D-4F47-92BB-61F3155326DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{14B7109A-273D-4F47-92BB-61F3155326DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{14B7109A-273D-4F47-92BB-61F3155326DA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8F163DF0-9098-4F1B-9766-35197ED0D5C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8F163DF0-9098-4F1B-9766-35197ED0D5C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F163DF0-9098-4F1B-9766-35197ED0D5C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
