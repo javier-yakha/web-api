@@ -10,6 +10,6 @@
         public string Description { get; set; }
         public ActiveStatus CurrentStatus { get; set; }
         public DateTime DateActivated { get; set; }
-        public DateTime? DateDeActivated { get; set; }
+        public DateTime? LastUpdated { get; set; }
     }
 }

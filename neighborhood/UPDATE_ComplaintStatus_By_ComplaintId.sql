@@ -3,9 +3,8 @@
 	@CurrentStatus int,
 	@LastUpdated datetime
 AS
-	UPDATE Complaints 
-	SET 
-		CurrentStatus = @CurrentStatus,
-		LastUpdated = @LastUpdated
-	WHERE Id = @Id;
-RETURN 0
+UPDATE Complaints 
+SET 
+	CurrentStatus = @CurrentStatus,
+	LastUpdated = @LastUpdated
+WHERE Id = @Id;

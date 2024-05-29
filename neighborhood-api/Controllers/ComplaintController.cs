@@ -6,19 +6,6 @@ namespace neighborhood_api.Controllers
 {
     public class ComplaintController : Controller
     {
-        [Route("test/json")]
-        [HttpGet]
-        public async Task<JsonResult> FirstJson()
-        {
-            return Json("test JSON");
-        }
-        [Route("test/string")]
-        [HttpGet]
-        public async Task<string> FirstString()
-        {
-            return "test string";
-        }
-
         [Route("complaint/create")]
         [HttpPost]
         public async Task<Responses.CreateComplaintStatus> CreateNewComplaintAsync([FromBody]Requests.CreateComplaint requestBody, [FromServices]ComplaintService complaintService)
@@ -26,10 +13,9 @@ namespace neighborhood_api.Controllers
             Responses.Status status = new();
 
             string serviceResult = await complaintService.CreateNewComplaintAsync(requestBody);
-            bool serviceStatus = string.IsNullOrEmpty(serviceResult);
 
-            status.Code = serviceStatus ? 200 : 403;
-            status.Message = serviceStatus ? "Successfully created new complaint" : "Insertion Failed";
+            status.Code = !string.IsNullOrEmpty(serviceResult) ? 200 : 403;
+            status.Message = !string.IsNullOrEmpty(serviceResult) ? "Successfully created new complaint" : "Insertion Failed";
 
             Responses.CreateComplaintStatus result = new(status);
 

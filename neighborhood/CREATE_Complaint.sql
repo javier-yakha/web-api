@@ -6,21 +6,21 @@
 	@Category int,
 	@Description nvarchar(2000)
 AS
-	INSERT INTO Complaints
-		(Id,
-		PersonName,
-		PersonApartmentCode,
-		Location,
-		Category,
-		Description,
-		CurrentStatus,
-		DateActivated)
-	VALUES 
-		(@Id,
-		@PersonName,
-		@PersonApartmentCode,
-		@Location,
-		@Category,
-		@Description,
-		1,
-		SYSUTCDATETIME())
+INSERT INTO Complaints
+	(Id,
+	PersonName,
+	PersonApartmentCode,
+	Location,
+	Category,
+	Description,
+	CurrentStatus,
+	DateActivated)
+VALUES 
+	(@Id,
+	@PersonName,
+	@PersonApartmentCode,
+	@Location,
+	@Category,
+	@Description,
+	1,
+	SYSUTCDATETIME())

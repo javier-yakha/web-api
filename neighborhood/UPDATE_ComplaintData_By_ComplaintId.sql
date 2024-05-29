@@ -6,12 +6,11 @@
 	@Category int,
 	@Description nvarchar(2000)
 AS
-	UPDATE Complaints
-	SET 
-		PersonName = @PersonName,
-		PersonApartmentCode = @PersonApartmentCode,
-		Location = @Location,
-		Category = @Category,
-		Description = @Description
-	WHERE Id = @Id
-RETURN 0
+UPDATE Complaints
+SET 
+	PersonName = @PersonName,
+	PersonApartmentCode = @PersonApartmentCode,
+	Location = @Location,
+	Category = @Category,
+	Description = @Description
+WHERE Id = @Id

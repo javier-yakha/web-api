@@ -143,7 +143,7 @@ namespace neighborhood_api.DataServices
                         Description = reader.GetString(5),
                         CurrentStatus = (ActiveStatus)reader.GetInt32(6),
                         DateActivated = reader.GetDateTime(7),
-                        DateDeActivated = reader.GetValue(8) == DBNull.Value ? null : reader.GetDateTime(8)
+                        LastUpdated = reader.GetValue(8) == DBNull.Value ? null : reader.GetDateTime(8)
                     });
                 };
                 await reader.CloseAsync();
@@ -193,7 +193,7 @@ namespace neighborhood_api.DataServices
                         Description = reader.GetString(5),
                         CurrentStatus = (ActiveStatus)reader.GetInt32(6),
                         DateActivated = reader.GetDateTime(7),
-                        DateDeActivated = reader.GetValue(8) == DBNull.Value ? null : reader.GetDateTime(8)
+                        LastUpdated = reader.GetValue(8) == DBNull.Value ? null : reader.GetDateTime(8)
                     });
                 }
                 await reader.CloseAsync();
