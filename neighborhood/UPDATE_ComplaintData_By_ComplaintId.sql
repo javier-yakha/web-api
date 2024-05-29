@@ -4,7 +4,7 @@
 	@PersonApartmentCode nvarchar(50),
 	@Location int,
 	@Category int,
-	@Description nvarchar(MAX)
+	@Description nvarchar(2000)
 AS
 	UPDATE Complaints
 	SET 

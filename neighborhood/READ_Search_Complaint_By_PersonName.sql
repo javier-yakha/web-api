@@ -3,7 +3,7 @@
 AS
 	SELECT Id, PersonName, PersonApartmentCode,
 		Location, Category, Description,
-		Status, DateActivated, DateDeActivated
+		CurrentStatus, DateActivated, LastUpdated
 	FROM Complaints
 	WHERE PersonName like '%' + @PersonName + '%'
 RETURN 0

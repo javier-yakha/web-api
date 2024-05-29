@@ -1,4 +1,6 @@
-﻿namespace neighborhood_api.Models.Complaints
+﻿using neighborhood_api.Models;
+
+namespace neighborhood_api.Requests
 {
     public class UpdateComplaint
     {
@@ -8,6 +10,6 @@
         public Locations Location { get; set; }
         public Categories Category { get; set; }
         public string Description { get; set; }
-        
+
     }
 }

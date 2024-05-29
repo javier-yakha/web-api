@@ -3,7 +3,7 @@ AS
 	SELECT 
 		Id, PersonName, PersonApartmentCode,
 		Location, Category, Description,
-		Status, DateActivated, DateDeActivated
+		CurrentStatus, DateActivated, LastUpdated
 	FROM Complaints
 	ORDER BY DateActivated
 RETURN 0

@@ -1,12 +1,11 @@
 ﻿CREATE PROCEDURE [dbo].[UPDATE_ComplaintStatus_By_ComplaintId]
 	@Id uniqueidentifier,
-	@Status int,
-	@OutputDateDeActivated datetime OUT
+	@CurrentStatus int,
+	@LastUpdated datetime
 AS
-	SET @OutputDateDeActivated = SYSUTCDATETIME()
 	UPDATE Complaints 
 	SET 
-		Status = @Status,
-		DateDeActivated = @OutputDateDeActivated
+		CurrentStatus = @CurrentStatus,
+		LastUpdated = @LastUpdated
 	WHERE Id = @Id;
 RETURN 0

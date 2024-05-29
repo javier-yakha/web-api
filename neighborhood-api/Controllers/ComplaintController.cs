@@ -1,8 +1,6 @@
-﻿using System.Text.Json.Nodes;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using neighborhood_api.DataServices;
 using neighborhood_api.Models.Complaints;
-using neighborhood_api.Models;
 
 namespace neighborhood_api.Controllers
 {
@@ -23,84 +21,53 @@ namespace neighborhood_api.Controllers
 
         [Route("complaint/create")]
         [HttpPost]
-        public async Task<JsonResult> CreateNewComplaintAsync([FromBody]CreateComplaint requestBody, [FromServices]ComplaintService complaintService)
+        public async Task<Responses.CreateComplaintStatus> CreateNewComplaintAsync([FromBody]Requests.CreateComplaint requestBody, [FromServices]ComplaintService complaintService)
         {
-            Dictionary<string, string> result = new Dictionary<string, string>(2);
+            Responses.Status status = new();
 
-            CreateComplaint complaint = new()
-            {
-                PersonName = requestBody.PersonName,
-                PersonApartmentCode = requestBody.PersonApartmentCode,
-                Location = requestBody.Location,
-                Category = requestBody.Category,
-                Description = requestBody.Description,
-            };
+            string serviceResult = await complaintService.CreateNewComplaintAsync(requestBody);
+            bool serviceStatus = string.IsNullOrEmpty(serviceResult);
 
-            string resp = await complaintService.CreateNewComplaintAsync(complaint);
+            status.Code = serviceStatus ? 200 : 403;
+            status.Message = serviceStatus ? "Successfully created new complaint" : "Insertion Failed";
 
-            if (string.IsNullOrEmpty(resp))
-            {
-                result.Add("status", "insertion failed");
-                result.Add("complaint Id", "");
-                return Json(result);
-            }
+            Responses.CreateComplaintStatus result = new(status);
 
-            result.Add("status", "success");
-            result.Add("complaint Id", resp);
+            result.Id = serviceResult;
 
-            return Json(result);
+            return result;
         }
 
         [Route("complaint/update/data")]
         [HttpPost]
-        public async Task<JsonResult> UpdateComplaintDataByComplaintIdAsync([FromBody]UpdateComplaint requestBody, [FromServices]ComplaintService complaintService)
+        public async Task<Responses.Status> UpdateComplaintDataByComplaintIdAsync([FromBody]Requests.UpdateComplaint requestBody, [FromServices]ComplaintService complaintService)
         {
-            Dictionary<string, string> result = new(2);
+            bool serviceResponse = await complaintService.UpdateComplaintDataByComplaintIdAsync(requestBody);
 
-            UpdateComplaint complaint = new()
+            Responses.Status status = new()
             {
-                Id = requestBody.Id,
-                PersonName = requestBody.PersonName,
-                PersonApartmentCode = requestBody.PersonApartmentCode,
-                Location = requestBody.Location,
-                Category = requestBody.Category,
-                Description = requestBody.Description,
+                Code = serviceResponse ? 200 : 403,
+                Message = serviceResponse ? "Successfully updated" : "Update failed"
             };
 
-            bool status = await complaintService.UpdateComplaintDataByComplaintIdAsync(complaint);
-
-            result.Add("complaint Id", $"{complaint.Id}");
-            result.Add("status", status ? "success" : "update failed");
-
-            return Json(result);
+            return status;
         }
 
         [Route("complaint/update/status")]
         [HttpPost]
-        public async Task<JsonResult> UpdateComplaintStatusByComplaintId([FromBody]UpdateComplaintStatus requestBody, [FromServices]ComplaintService complaintService)
+        public async Task<Responses.UpdatedStatus> UpdateComplaintStatusByComplaintId([FromBody]Requests.UpdateComplaintStatus requestBody, [FromServices]ComplaintService complaintService)
         {
-            Dictionary<string, string> result = new(2);
+            DateTime dateTime = DateTime.UtcNow;
 
-            UpdateComplaintStatus complaint = new()
+            bool serviceResponse = await complaintService.UpdateComplaintStatusByComplaintIdAsync(requestBody, dateTime);
+
+            Responses.Status status = new()
             {
-                Id = requestBody.Id,
-                CurrentStatus = (Status)requestBody.CurrentStatus
+                Code = serviceResponse ? 200 : 403,
+                Message = serviceResponse ? "Success" : "Update failed",
             };
 
-            var resp = await complaintService.UpdateComplaintStatusByComplaintIdAsync(complaint);
-
-            
-            if (!resp.Item1 || resp.Item2 is null)
-            {
-                result.Add("status", "update failed");
-
-                return Json(result);
-            }
-
-            result.Add("status", "success");
-            result.Add("date deactivated", resp.Item2.ToString());
-
-            return Json(result);
+            return new Responses.UpdatedStatus(status, dateTime);
         }
 
         [Route("complaint/read/all/bydate")]

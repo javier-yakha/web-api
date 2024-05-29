@@ -1,6 +1,6 @@
 ﻿namespace neighborhood_api.Models
 {
-    public enum Status
+    public enum ActiveStatus
     {
         None,
         Active,
@@ -14,8 +14,7 @@
         TowerB,
         TowerC,
         Parking,
-        Garden,
-        Other
+        Garden
     }
     public enum Categories
     {
@@ -24,7 +23,6 @@
         Animals,
         Children,
         Maintenance,
-        Parking,
-        Other
+        Parking
     }
 }
