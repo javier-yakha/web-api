@@ -1,5 +1,1 @@
-﻿1
-
-
-- Retrieve all complaints by date
-- Search complaints by name
+﻿- Search complaints by name

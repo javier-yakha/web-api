@@ -147,22 +147,73 @@ namespace neighborhood_api.DataServices
 
                 while (await reader.ReadAsync())
                 {
-                    Complaint complaint = new Complaint();
-                    complaint.Id = reader.GetGuid(0).ToString();
-                    complaint.PersonName = reader.GetString(1);
-                    complaint.PersonApartmentCode = reader.GetString(2);
-                    complaint.Location = (Locations)reader.GetInt32(3);
-                    complaint.Category = (Categories)reader.GetInt32(4);
-                    complaint.Description = reader.GetString(5);
-                    complaint.CurrentStatus = (Status)reader.GetInt32(6);
-                    complaint.DateActivated = reader.GetDateTime(7);
-                    complaint.DateDeActivated = reader.GetValue(8) == DBNull.Value ? null : reader.GetDateTime(8);
-
-                    complaints.Add(complaint);
+                    complaints.Add(new Complaint
+                    {
+                        Id = reader.GetGuid(0).ToString(),
+                        PersonName = reader.GetString(1),
+                        PersonApartmentCode = reader.GetString(2),
+                        Location = (Locations)reader.GetInt32(3),
+                        Category = (Categories)reader.GetInt32(4),
+                        Description = reader.GetString(5),
+                        CurrentStatus = (Status)reader.GetInt32(6),
+                        DateActivated = reader.GetDateTime(7),
+                        DateDeActivated = reader.GetValue(8) == DBNull.Value ? null : reader.GetDateTime(8)
+                    });
                 };
                 await reader.CloseAsync();
 
                 return (true, complaints);
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+
+                return (false, complaints);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+
+                return (false, complaints);
+            }
+        }
+
+        public async Task<(bool, List<Complaint>)> ReadSearchComplaintByPersonName(string personName)
+        {
+            List<Complaint> complaints = new();
+            try
+            {
+                SqlCommand cmd = new SqlCommand("READ_Search_Complaint_By_PersonName", sqlConnection);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@PersonName", personName);
+
+                SqlDataReader reader = await cmd.ExecuteReaderAsync();
+
+                if (!reader.HasRows)
+                {
+                    return (true, complaints);
+                }
+
+                while (await reader.ReadAsync())
+                {
+                    complaints.Add(new Complaint
+                    {
+                        Id = reader.GetGuid(0).ToString(),
+                        PersonName = reader.GetString(1),
+                        PersonApartmentCode = reader.GetString(2),
+                        Location = (Locations)reader.GetInt32(3),
+                        Category = (Categories)reader.GetInt32(4),
+                        Description = reader.GetString(5),
+                        CurrentStatus = (Status)reader.GetInt32(6),
+                        DateActivated = reader.GetDateTime(7),
+                        DateDeActivated = reader.GetValue(8) == DBNull.Value ? null : reader.GetDateTime(8)
+                    });
+                }
+                await reader.CloseAsync();
+
+                return (true, complaints);
+
             }
             catch (SqlException e)
             {

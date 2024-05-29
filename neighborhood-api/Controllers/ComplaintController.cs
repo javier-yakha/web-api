@@ -124,5 +124,27 @@ namespace neighborhood_api.Controllers
 
             return Json(result);
         }
+
+        [Route("complaint/read/search/byname")]
+        [HttpGet]
+        public async Task<JsonResult> ReadSearchComplaintByPersonName([FromQuery]string personName, [FromServices]ComplaintService complaintService)
+        {
+            Dictionary<string, JsonResult> result = new(3);
+
+            (bool, List<Complaint>) resp = await complaintService.ReadSearchComplaintByPersonName(personName);
+
+            if (!resp.Item1)
+            {
+                result.Add("status", Json("read failed"));
+
+                return Json(result);
+            }
+
+            result.Add("status", Json("Success"));
+            result.Add("total found", Json(resp.Item2.Count));
+            result.Add("complaints", Json(resp.Item2));
+
+            return Json(result);
+        }
     }
 }
