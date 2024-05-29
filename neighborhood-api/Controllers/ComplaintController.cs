@@ -23,7 +23,7 @@ namespace neighborhood_api.Controllers
 
         [Route("complaint/create")]
         [HttpPost]
-        public async Task<JsonResult> CreateNewComplaint([FromBody]CreateComplaint requestBody, [FromServices]ComplaintService complaintService)
+        public async Task<JsonResult> CreateNewComplaintAsync([FromBody]CreateComplaint requestBody, [FromServices]ComplaintService complaintService)
         {
             Dictionary<string, string> result = new Dictionary<string, string>(2);
 
@@ -53,7 +53,7 @@ namespace neighborhood_api.Controllers
 
         [Route("complaint/update/data")]
         [HttpPost]
-        public async Task<JsonResult> UpdateComplaintDataByComplaintId([FromBody]UpdateComplaint requestBody, [FromServices]ComplaintService complaintService)
+        public async Task<JsonResult> UpdateComplaintDataByComplaintIdAsync([FromBody]UpdateComplaint requestBody, [FromServices]ComplaintService complaintService)
         {
             Dictionary<string, string> result = new(2);
 
@@ -67,7 +67,7 @@ namespace neighborhood_api.Controllers
                 Description = requestBody.Description,
             };
 
-            bool status = await complaintService.UpdateComplaintDataByComplaintId(complaint);
+            bool status = await complaintService.UpdateComplaintDataByComplaintIdAsync(complaint);
 
             result.Add("complaint Id", $"{complaint.Id}");
             result.Add("status", status ? "success" : "update failed");
@@ -87,7 +87,7 @@ namespace neighborhood_api.Controllers
                 CurrentStatus = (Status)requestBody.CurrentStatus
             };
 
-            var resp = await complaintService.UpdateComplaintStatusByComplaintId(complaint);
+            var resp = await complaintService.UpdateComplaintStatusByComplaintIdAsync(complaint);
 
             
             if (!resp.Item1 || resp.Item2 is null)
@@ -99,6 +99,28 @@ namespace neighborhood_api.Controllers
 
             result.Add("status", "success");
             result.Add("date deactivated", resp.Item2.ToString());
+
+            return Json(result);
+        }
+
+        [Route("complaint/read/all/bydate")]
+        [HttpGet]
+        public async Task<JsonResult> ReadAllComplaintsByDate([FromServices]ComplaintService complaintService)
+        {
+            Dictionary<string, JsonResult> result = new(3);
+
+            (bool, List<Complaint>) resp = await complaintService.ReadAllComplaintsByDateAsync();
+
+            if (!resp.Item1)
+            {
+                result.Add("status", Json("read failed"));
+
+                return Json(result);
+            }
+
+            result.Add("status", Json("success"));
+            result.Add("total complaints", Json(resp.Item2.Count));
+            result.Add("complaints", Json(resp.Item2));
 
             return Json(result);
         }

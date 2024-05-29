@@ -59,7 +59,7 @@ namespace neighborhood_api.DataServices
             }
         }
 
-        public async Task<bool> UpdateComplaintDataByComplaintId(UpdateComplaint complaint)
+        public async Task<bool> UpdateComplaintDataByComplaintIdAsync(UpdateComplaint complaint)
         {
             try
             {
@@ -91,7 +91,7 @@ namespace neighborhood_api.DataServices
             }
         }
 
-        public async Task<(bool, DateTime?)> UpdateComplaintStatusByComplaintId(UpdateComplaintStatus complaint)
+        public async Task<(bool, DateTime?)> UpdateComplaintStatusByComplaintIdAsync(UpdateComplaintStatus complaint)
         {
             try
             {
@@ -127,6 +127,54 @@ namespace neighborhood_api.DataServices
                 Console.WriteLine(e.Message);
 
                 return (false, null);
+            }
+        }
+
+        public async Task<(bool, List<Complaint>)> ReadAllComplaintsByDateAsync()
+        {
+            List<Complaint> complaints = new List<Complaint>();
+            try
+            {
+                SqlCommand cmd = new SqlCommand("READ_All_Complaints_By_DateActivated", sqlConnection);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SqlDataReader reader = await cmd.ExecuteReaderAsync();
+
+                if (!reader.HasRows)
+                {
+                    return (true, complaints);
+                }
+
+                while (await reader.ReadAsync())
+                {
+                    Complaint complaint = new Complaint();
+                    complaint.Id = reader.GetGuid(0).ToString();
+                    complaint.PersonName = reader.GetString(1);
+                    complaint.PersonApartmentCode = reader.GetString(2);
+                    complaint.Location = (Locations)reader.GetInt32(3);
+                    complaint.Category = (Categories)reader.GetInt32(4);
+                    complaint.Description = reader.GetString(5);
+                    complaint.CurrentStatus = (Status)reader.GetInt32(6);
+                    complaint.DateActivated = reader.GetDateTime(7);
+                    complaint.DateDeActivated = reader.GetValue(8) == DBNull.Value ? null : reader.GetDateTime(8);
+
+                    complaints.Add(complaint);
+                };
+                await reader.CloseAsync();
+
+                return (true, complaints);
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+
+                return (false, complaints);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+
+                return (false, complaints);
             }
         }
     }
