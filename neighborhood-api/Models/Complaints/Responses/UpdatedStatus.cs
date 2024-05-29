@@ -3,6 +3,6 @@
     public class UpdatedStatus(Status status, DateTime dateTime)
     {
         public Status Status { get; set; } = status;
-        public DateTime LastUpdatedDate { get; set; } = dateTime;
+        public DateTime LastUpdated { get; set; } = dateTime;
     }
 }
