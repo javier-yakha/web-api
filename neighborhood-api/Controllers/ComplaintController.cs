@@ -125,7 +125,7 @@ namespace neighborhood_api.Controllers
             return Json(result);
         }
 
-        [Route("complaint/read/search/byname")]
+        [Route("complaint/read/search")]
         [HttpGet]
         public async Task<JsonResult> ReadSearchComplaintByPersonName([FromQuery]string personName, [FromServices]ComplaintService complaintService)
         {
