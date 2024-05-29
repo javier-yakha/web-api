@@ -72,46 +72,44 @@ namespace neighborhood_api.Controllers
 
         [Route("complaint/read/all/bydate")]
         [HttpGet]
-        public async Task<JsonResult> ReadAllComplaintsByDate([FromServices]ComplaintService complaintService)
+        public async Task<Responses.ComplaintListStatus> ReadAllComplaintsByDate([FromServices]ComplaintService complaintService)
         {
-            Dictionary<string, JsonResult> result = new(3);
+            List<Complaint>? serviceResponse = await complaintService.ReadAllComplaintsByDateAsync();
 
-            (bool, List<Complaint>) resp = await complaintService.ReadAllComplaintsByDateAsync();
-
-            if (!resp.Item1)
+            Responses.Status status = new()
             {
-                result.Add("status", Json("read failed"));
+                Code = serviceResponse is not null ? 200 : 403,
+                Message = serviceResponse is not null ? "Successfully retrieved complaints" : "Read Failed"
+            };
 
-                return Json(result);
-            }
+            Responses.ComplaintListStatus results = new(status)
+            {
+                Total = serviceResponse?.Count,
+                Complaints = serviceResponse ?? null
+            };
 
-            result.Add("status", Json("success"));
-            result.Add("total complaints", Json(resp.Item2.Count));
-            result.Add("complaints", Json(resp.Item2));
-
-            return Json(result);
+            return results;
         }
 
         [Route("complaint/read/search")]
         [HttpGet]
-        public async Task<JsonResult> ReadSearchComplaintByPersonName([FromQuery]string personName, [FromServices]ComplaintService complaintService)
+        public async Task<Responses.ComplaintListStatus> ReadSearchComplaintByPersonName([FromQuery]string personName, [FromServices]ComplaintService complaintService)
         {
-            Dictionary<string, JsonResult> result = new(3);
+            List<Complaint>? serviceResponse = await complaintService.ReadSearchComplaintByPersonName(personName);
 
-            (bool, List<Complaint>) resp = await complaintService.ReadSearchComplaintByPersonName(personName);
-
-            if (!resp.Item1)
+            Responses.Status status = new()
             {
-                result.Add("status", Json("read failed"));
+                Code = serviceResponse is not null ? 200 : 403,
+                Message = serviceResponse is not null ? "Successfully searched complaints" : "Search failed"
+            };
 
-                return Json(result);
-            }
+            Responses.ComplaintListStatus results = new(status)
+            {
+                Total = serviceResponse?.Count,
+                Complaints = serviceResponse ?? null
+            };
 
-            result.Add("status", Json("Success"));
-            result.Add("total found", Json(resp.Item2.Count));
-            result.Add("complaints", Json(resp.Item2));
-
-            return Json(result);
+            return results;
         }
     }
 }

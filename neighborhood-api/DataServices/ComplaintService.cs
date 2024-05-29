@@ -116,7 +116,7 @@ namespace neighborhood_api.DataServices
             }
         }
 
-        public async Task<(bool, List<Complaint>)> ReadAllComplaintsByDateAsync()
+        public async Task<List<Complaint>?> ReadAllComplaintsByDateAsync()
         {
             List<Complaint> complaints = [];
             try
@@ -128,7 +128,7 @@ namespace neighborhood_api.DataServices
 
                 if (!reader.HasRows)
                 {
-                    return (true, complaints);
+                    return complaints;
                 }
 
                 while (await reader.ReadAsync())
@@ -148,25 +148,25 @@ namespace neighborhood_api.DataServices
                 };
                 await reader.CloseAsync();
 
-                return (true, complaints);
+                return complaints;
             }
             catch (SqlException e)
             {
                 Console.WriteLine(e.Message);
 
-                return (false, complaints);
+                return null;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
 
-                return (false, complaints);
+                return null;
             }
         }
 
-        public async Task<(bool, List<Complaint>)> ReadSearchComplaintByPersonName(string personName)
+        public async Task<List<Complaint>?> ReadSearchComplaintByPersonName(string personName)
         {
-            List<Complaint> complaints = new();
+            List<Complaint> complaints = [];
             try
             {
                 SqlCommand cmd = new("READ_Search_Complaint_By_PersonName", sqlConnection);
@@ -178,7 +178,7 @@ namespace neighborhood_api.DataServices
 
                 if (!reader.HasRows)
                 {
-                    return (true, complaints);
+                    return complaints;
                 }
 
                 while (await reader.ReadAsync())
@@ -198,20 +198,20 @@ namespace neighborhood_api.DataServices
                 }
                 await reader.CloseAsync();
 
-                return (true, complaints);
+                return complaints;
 
             }
             catch (SqlException e)
             {
                 Console.WriteLine(e.Message);
 
-                return (false, complaints);
+                return null;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
 
-                return (false, complaints);
+                return null;
             }
         }
     }
