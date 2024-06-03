@@ -8,8 +8,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using neighborhood_api.Models;
-using neighborhood_api.Requests;
+using Models.Complaints;
+using Models.Complaints.Requests;
 
 namespace wpf_ui
 {

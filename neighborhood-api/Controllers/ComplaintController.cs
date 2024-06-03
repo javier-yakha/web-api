@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using neighborhood_api.DataServices;
-using neighborhood_api.Models.Complaints;
+using Models;
+using Models.Complaints;
+using Responses = Models.Complaints.Responses;
+using Requests = Models.Complaints.Requests;
 
 namespace neighborhood_api.Controllers
 {
@@ -8,10 +11,10 @@ namespace neighborhood_api.Controllers
     {
         [Route("test/json")]
         [HttpGet]
-        public async Task<Responses.Status> TestHttpConnection()
+        public async Task<Status> TestHttpConnection()
         {
             await Task.Delay(0);
-            return new Responses.Status()
+            return new Status()
             {
                 Code = 200,
                 Message = "Connection Established"
@@ -22,7 +25,7 @@ namespace neighborhood_api.Controllers
         [HttpPost]
         public async Task<Responses.CreateComplaintStatus> CreateNewComplaintAsync([FromBody]Requests.CreateComplaint requestBody, [FromServices]ComplaintService complaintService)
         {
-            Responses.Status status = new();
+            Status status = new();
 
             string serviceResult = await complaintService.CreateNewComplaintAsync(requestBody);
 
@@ -38,11 +41,11 @@ namespace neighborhood_api.Controllers
 
         [Route("complaint/update/data")]
         [HttpPost]
-        public async Task<Responses.Status> UpdateComplaintDataByComplaintIdAsync([FromBody]Requests.UpdateComplaint requestBody, [FromServices]ComplaintService complaintService)
+        public async Task<Status> UpdateComplaintDataByComplaintIdAsync([FromBody]Requests.UpdateComplaint requestBody, [FromServices]ComplaintService complaintService)
         {
             bool serviceResponse = await complaintService.UpdateComplaintDataByComplaintIdAsync(requestBody);
 
-            Responses.Status status = new()
+            Status status = new()
             {
                 Code = serviceResponse ? 200 : 403,
                 Message = serviceResponse ? "Successfully updated" : "Update failed"
@@ -59,7 +62,7 @@ namespace neighborhood_api.Controllers
 
             bool serviceResponse = await complaintService.UpdateComplaintStatusByComplaintIdAsync(requestBody, dateTime);
 
-            Responses.Status status = new()
+            Status status = new()
             {
                 Code = serviceResponse ? 200 : 403,
                 Message = serviceResponse ? "Success" : "Update failed",
@@ -74,7 +77,7 @@ namespace neighborhood_api.Controllers
         {
             List<Complaint>? serviceResponse = await complaintService.ReadAllComplaintsByDateAsync();
 
-            Responses.Status status = new()
+            Status status = new()
             {
                 Code = serviceResponse is not null ? 200 : 403,
                 Message = serviceResponse is not null ? "Successfully retrieved complaints" : "Read Failed"
@@ -95,7 +98,7 @@ namespace neighborhood_api.Controllers
         {
             List<Complaint>? serviceResponse = await complaintService.ReadSearchComplaintByPersonName(personName);
 
-            Responses.Status status = new()
+            Status status = new()
             {
                 Code = serviceResponse is not null ? 200 : 403,
                 Message = serviceResponse is not null ? "Successfully searched complaints" : "Search failed"

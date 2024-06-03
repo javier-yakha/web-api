@@ -11,10 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using neighborhood_api;
-using neighborhood_api.Models;
-using neighborhood_api.Models.Complaints;
-
+using Models.Complaints;
+ 
 namespace wpf_ui
 {
     /// <summary>

@@ -1,4 +1,4 @@
-﻿namespace neighborhood_api.Models.Complaints
+﻿namespace Models.Complaints
 {
     public class Complaint
     {

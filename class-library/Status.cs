@@ -1,4 +1,4 @@
-﻿namespace neighborhood_api.Responses
+﻿namespace Models
 {
     public class Status()
     {

@@ -9,7 +9,7 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "neighborhood", "neighborhoo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wpf-ui", "wpf-ui\wpf-ui.csproj", "{530C34C8-6445-4F08-94A8-5732DDF3F6A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "class-library", "class-library\class-library.csproj", "{5141B43E-31EE-4560-9464-4F7436B847E7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "class-library\Models.csproj", "{5141B43E-31EE-4560-9464-4F7436B847E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

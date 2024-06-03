@@ -1,6 +1,4 @@
-﻿using neighborhood_api.Models;
-
-namespace neighborhood_api.Requests
+﻿namespace Models.Complaints.Requests
 {
     public class CreateComplaint
     {

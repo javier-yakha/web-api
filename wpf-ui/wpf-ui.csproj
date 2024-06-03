@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\neighborhood-api\neighborhood-api.csproj" />
+    <ProjectReference Include="..\class-library\Models.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace neighborhood_api.Models
+﻿namespace Models.Complaints
 {
     public enum ActiveStatus
     {
