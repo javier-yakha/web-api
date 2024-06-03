@@ -9,7 +9,7 @@
     }
     public enum Locations
     {
-        None,
+        Other,
         TowerA,
         TowerB,
         TowerC,
@@ -18,7 +18,7 @@
     }
     public enum Categories
     {
-        None,
+        Other,
         Noise,
         Animals,
         Children,
