@@ -10,6 +10,7 @@ namespace neighborhood_api.Controllers
         [HttpGet]
         public async Task<Responses.Status> TestHttpConnection()
         {
+            await Task.Delay(0);
             return new Responses.Status()
             {
                 Code = 200,
