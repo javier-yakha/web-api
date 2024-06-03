@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using neighborhood_api.DataServices;
-using neighborhood_api.Models.Complaints;
+using Models.Complaints;
+using Responses = Models.Complaints.Responses;
+using Requests = Models.Complaints.Requests;
 
 namespace neighborhood_api.Controllers
 {

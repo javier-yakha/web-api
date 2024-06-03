@@ -1,8 +1,7 @@
 ﻿using System.Data;
 using Microsoft.Data.SqlClient;
-using neighborhood_api.Models;
-using neighborhood_api.Models.Complaints;
-using neighborhood_api.Requests;
+using Models.Complaints;
+using Models.Complaints.Requests;
 
 namespace neighborhood_api.DataServices
 {

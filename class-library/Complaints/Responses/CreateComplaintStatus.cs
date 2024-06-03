@@ -1,4 +1,4 @@
-﻿namespace neighborhood_api.Responses
+﻿namespace Models.Complaints.Responses
 {
     public class CreateComplaintStatus(Status status)
     {
