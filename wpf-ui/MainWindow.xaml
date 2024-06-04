@@ -5,8 +5,56 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:wpf_ui"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" Height="600" Width="920"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True"
+        >
+
+    <Border CornerRadius="20" MouseDown="Border_MouseDown">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                <GradientStop Color="#342255" Offset="0.0"/>
+                <GradientStop Color="#323295" Offset="1.0"/>
+            </LinearGradientBrush>
+        </Border.Background>
+        <Border.Clip>
+            <RectangleGeometry RadiusX="10" RadiusY="10" Rect="0,0,800,450" />
+        </Border.Clip>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Neighbourhood" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Ivory" FontSize="22" FontWeight="Bold" Margin="20,0,0,0"/>
+
+            <StackPanel Grid.Row="1">
+                <RadioButton x:Name="HomeTab" GroupName="Tabs" Style="{StaticResource NavbarButton}" Content="Home" Height="50" Foreground="Ivory" FontSize="14" />
+                <RadioButton x:Name="NewComplaintTab" GroupName="Tabs" Style="{StaticResource NavbarButton}" Content="New Complaint" Height="50" Foreground="Ivory" FontSize="14" />
+                <RadioButton x:Name="SeeAllTab" GroupName="Tabs" Style="{StaticResource NavbarButton}" Content="See all complaints" Height="50" Foreground="Ivory" FontSize="14" />
+                <RadioButton x:Name="SearchTab" GroupName="Tabs" Style="{StaticResource NavbarButton}" Content="Search" Height="50" Foreground="Ivory" FontSize="14" />
+                <Label Content="" Visibility="Hidden" />
+                <Label Content="" Visibility="Hidden" />
+                <Label Content="" Visibility="Hidden" />
+                <Label Content="" Visibility="Hidden" />
+                <Button x:Name="ExitBtn" Click="ExitBtn_Click" Content="Exit" Height="44" FontWeight="DemiBold" Foreground="Ivory" FontSize="24" FontFamily="SimSun" Width="155">
+                    <Button.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                            <GradientStop Color="#f00b33" Offset="0.0" />
+                            <GradientStop Color="#ff7733" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
+            </StackPanel>
+            
+            <Image Source="C:\Users\user\Projects\basic-API\web-api\wpf-ui\Images\transparent-park.png" Margin="336,129,68,102" Grid.Row="1" Grid.Column="1" />
+        </Grid>
+
+    </Border>
 </Window>

@@ -13,4 +13,8 @@
     <ProjectReference Include="..\class-library\Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Images\" />
+  </ItemGroup>
+
 </Project>

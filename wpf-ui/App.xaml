@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:wpf_ui"
              StartupUri="CreateComplaintWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Theme/NavbarButton.xaml" />
+                <ResourceDictionary Source="Theme/CustomSearchBar.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

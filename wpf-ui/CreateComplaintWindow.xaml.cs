@@ -14,11 +14,11 @@ using Models.Complaints.Requests;
 namespace wpf_ui
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for CreateComplaintWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CreateComplaintWindow : Window
     {
-        public MainWindow()
+        public CreateComplaintWindow()
         {
             InitializeComponent();
             foreach (Locations location in Enum.GetValues<Locations>())
@@ -38,7 +38,7 @@ namespace wpf_ui
             NameErrorLabel.Content = "";
             ApartmentErrorLabel.Content = "";
             DescriptionErrorLabel.Content = "";
-
+            
             string name = NameTextBox.Text;
             string apartment = ApartmentTextBox.Text;
             Locations location = (Locations)LocationComboBox.SelectedIndex;
@@ -97,12 +97,23 @@ namespace wpf_ui
             }
 
         }
+        private bool CorrectForm()
+        {
+            return true;
+        }
 
-        private async Task ApiCall(CreateComplaint complaint)
+        private async Task<bool> ApiCall(CreateComplaint complaint)
         {
             await Task.Delay(1000);
+            return true;
         }
-         
-        
+
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        }
     }
 }
