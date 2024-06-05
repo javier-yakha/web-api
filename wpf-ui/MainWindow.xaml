@@ -35,15 +35,11 @@
             <TextBlock Text="Neighbourhood" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Ivory" FontSize="22" FontWeight="Bold" Margin="20,0,0,0"/>
 
             <StackPanel Grid.Row="1">
-                <RadioButton x:Name="HomeTab" GroupName="Tabs" Style="{StaticResource NavbarButton}" Content="Home" Height="50" Foreground="Ivory" FontSize="14" />
-                <RadioButton x:Name="NewComplaintTab" GroupName="Tabs" Style="{StaticResource NavbarButton}" Content="New Complaint" Height="50" Foreground="Ivory" FontSize="14" />
-                <RadioButton x:Name="SeeAllTab" GroupName="Tabs" Style="{StaticResource NavbarButton}" Content="See all complaints" Height="50" Foreground="Ivory" FontSize="14" />
-                <RadioButton x:Name="SearchTab" GroupName="Tabs" Style="{StaticResource NavbarButton}" Content="Search" Height="50" Foreground="Ivory" FontSize="14" />
-                <Label Content="" Visibility="Hidden" />
-                <Label Content="" Visibility="Hidden" />
-                <Label Content="" Visibility="Hidden" />
-                <Label Content="" Visibility="Hidden" />
-                <Button x:Name="ExitBtn" Click="ExitBtn_Click" Content="Exit" Height="44" FontWeight="DemiBold" Foreground="Ivory" FontSize="24" FontFamily="SimSun" Width="155">
+                <RadioButton x:Name="HomeTab" Checked="RadioButton_Tab_Checked" GroupName="Tabs" Style="{StaticResource NavbarButton}" Content="Home" Height="50" Foreground="Ivory" FontSize="14" />
+                <RadioButton x:Name="NewComplaintTab" Checked="RadioButton_Tab_Checked" GroupName="Tabs" Style="{StaticResource NavbarButton}" Content="New Complaint" Height="50" Foreground="Ivory" FontSize="14" />
+                <RadioButton x:Name="SeeAllTab" Checked="RadioButton_Tab_Checked" GroupName="Tabs" Style="{StaticResource NavbarButton}" Content="See all complaints" Height="50" Foreground="Ivory" FontSize="14" />
+                <RadioButton x:Name="SearchTab" Checked="RadioButton_Tab_Checked" GroupName="Tabs" Style="{StaticResource NavbarButton}" Content="Search" Height="50" Foreground="Ivory" FontSize="14" />
+                <Button x:Name="ExitBtn" Click="ExitBtn_Click" Content="Exit" Height="44" FontWeight="DemiBold" Foreground="Ivory" FontSize="24" FontFamily="SimSun" Width="155" Margin="0,100,0,0">
                     <Button.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                             <GradientStop Color="#f00b33" Offset="0.0" />
@@ -52,8 +48,8 @@
                     </Button.Background>
                 </Button>
             </StackPanel>
-            
-            <Image Source="C:\Users\user\Projects\basic-API\web-api\wpf-ui\Images\transparent-park.png" Margin="336,129,68,102" Grid.Row="1" Grid.Column="1" />
+            <Frame Grid.Column="1" x:Name="ContentFrame" Height="400" Width="400" Margin="0,38,310,162" NavigationUIVisibility="Hidden" HorizontalAlignment="Right" Grid.RowSpan="2" />
+            <Image Source="C:\Users\user\Projects\basic-API\web-api\wpf-ui\Images\transparent-park.png" Margin="410,167,68,102" Grid.Row="1" Grid.Column="1" />
         </Grid>
 
     </Border>

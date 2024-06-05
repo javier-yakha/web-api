@@ -1,4 +1,10 @@
-﻿using System.Text;
+﻿using Models.Complaints.Requests;
+using Models.Complaints;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -8,17 +14,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Models.Complaints;
-using Models.Complaints.Requests;
 
-namespace wpf_ui
+namespace wpf_ui.Pages
 {
     /// <summary>
-    /// Interaction logic for CreateComplaintWindow.xaml
+    /// Interaction logic for CreateComplaintPage.xaml
     /// </summary>
-    public partial class CreateComplaintWindow : Window
+    public partial class CreateComplaintPage : Page
     {
-        public CreateComplaintWindow()
+        public CreateComplaintPage()
         {
             InitializeComponent();
             foreach (Locations location in Enum.GetValues<Locations>())
@@ -126,16 +130,11 @@ namespace wpf_ui
 
         private async Task<bool> ApiCall(CreateComplaint complaint)
         {
-            await Task.Delay(1000);
+            await Task.Delay(100);
+             
             return true;
         }
 
-        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                DragMove();
-            }
-        }
     }
+
 }

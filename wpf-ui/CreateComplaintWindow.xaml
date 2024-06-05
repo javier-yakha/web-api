@@ -47,12 +47,14 @@
             <StackPanel Grid.Column="0">
                 <TextBlock Text="Issuer Name" VerticalAlignment="Center" Foreground="Ivory" FontSize="18" FontWeight="Bold" Margin="20,2,0,0"/>
                 <Label x:Name="NameErrorLabel" Content="" FontSize="10" FontWeight="Medium" Foreground="Red" VerticalContentAlignment="Center" Margin="20,0,0,0" />
-                <TextBlock Text="Issuer Apartment" VerticalAlignment="Center" Foreground="Ivory" FontSize="18" FontWeight="Bold" Margin="20,10,0,0"/>
+                <TextBlock Text="Issuer Apartment" VerticalAlignment="Center" Foreground="Ivory" FontSize="18" FontWeight="Bold" Margin="20,8,0,0"/>
                 <Label x:Name="ApartmentErrorLabel" Content="" FontSize="10" FontWeight="Medium" Foreground="Red" VerticalContentAlignment="Center" Margin="20,0,0,0" />
-                <TextBlock Text="Location" VerticalAlignment="Center" Foreground="Ivory" FontSize="18" FontWeight="Bold" Margin="20,10,0,30"/>
-                <TextBlock Text="Category" VerticalAlignment="Center" Foreground="Ivory" FontSize="18" FontWeight="Bold" Margin="20,8,0,20"/>
+                <TextBlock Text="Location" VerticalAlignment="Center" Foreground="Ivory" FontSize="18" FontWeight="Bold" Margin="20,10,0,0"/>
+                <Label x:Name="LocationErrorLabel" Content="" FontSize="10" FontWeight="Medium" Foreground="Red" VerticalContentAlignment="Center" Margin="20,0,0,0" />
+                <TextBlock Text="Category" VerticalAlignment="Center" Foreground="Ivory" FontSize="18" FontWeight="Bold" Margin="20,10,0,0"/>
+                <Label x:Name="CategoryErrorLabel" Content="" FontSize="10" FontWeight="Medium" Foreground="Red" VerticalContentAlignment="Center" Margin="20,0,0,0" />
                 <TextBlock Text="Description" VerticalAlignment="Center" Foreground="Ivory" FontSize="18" FontWeight="Bold" Margin="20,5,0,20"/>
-                <Label x:Name="DescriptionErrorLabel" Content="" FontSize="10" FontWeight="Medium" Foreground="Red" VerticalContentAlignment="Center" Margin="20,0,0,0" Height="36" />
+                <Label x:Name="DescriptionErrorLabel" Content="" FontSize="10" FontWeight="Medium" Foreground="Red" VerticalContentAlignment="Center" Margin="20,0,0,0" />
             </StackPanel>
 
             <StackPanel Grid.Column="1">

@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using wpf_ui.Pages;
 
 namespace wpf_ui
 {
@@ -26,6 +27,7 @@ namespace wpf_ui
 
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show("Bye!");
             this.Close();
         }
 
@@ -35,6 +37,28 @@ namespace wpf_ui
             {
                 DragMove();
             }
+        }
+
+        private void RadioButton_Tab_Checked(object sender, RoutedEventArgs e)
+        {
+            var radioButton = (RadioButton)sender;
+
+            switch (radioButton.Name)
+            {
+                case "HomeTab":
+                    ContentFrame.Navigate(null);
+                    break;
+                case "NewComplaintTab":
+                    ContentFrame.Navigate(new CreateComplaintPage());
+                    break;
+                case "SeeAllTab":
+                    break;
+                case "SearchTab":
+                    break;
+                default:
+                    break;
+            }
+
         }
     }
 }
