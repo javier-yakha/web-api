@@ -1,6 +1,6 @@
 ﻿namespace Models.Complaints.Responses
 {
-    public class CreateComplaintStatus
+    public class CreateComplaint
     {
         public string? Id { get; set; }
     }

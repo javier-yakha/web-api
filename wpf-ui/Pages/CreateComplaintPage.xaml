@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:wpf_ui.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="350" d:DesignWidth="400"
+      d:DesignHeight="350" d:DesignWidth="500"
       Title="CreateComplaintPage">
     <Grid>
         <Grid.RowDefinitions>
@@ -14,10 +14,7 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="0" Margin="0">
-            
-            <TextBlock Text="File Complaint" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Ivory" FontSize="32" FontWeight="Bold" Margin="20,0,0,0"/>
-        </Border>
+        <TextBlock Grid.Row="0" Text="File Complaint" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Ivory" FontSize="32" FontWeight="Bold" Margin="20,0,0,0"/>
 
         <Grid Grid.Row="1"  Margin="15,5,15,0">
             <Grid.ColumnDefinitions>
@@ -28,6 +25,7 @@
             <StackPanel Grid.Column="0">
                 <TextBlock Text="Issuer Name" Foreground="Ivory" FontSize="15" FontWeight="Bold" Margin="20,1,0,0" Height="19" />
                 <Label Style="{DynamicResource ErrorLabel}" x:Name="NameErrorLabel" />
+                
                 <TextBlock Text="Issuer Apartment" Foreground="Ivory" FontSize="15" FontWeight="Bold" Margin="20,1,0,0" Height="19"/>
                 <Label Style="{DynamicResource ErrorLabel}" x:Name="ApartmentErrorLabel"/>
                 <TextBlock Text="Location" Foreground="Ivory" FontSize="15" FontWeight="Bold" Margin="20,1,0,0" Height="19"/>
@@ -55,7 +53,5 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-
-        <Image Source="C:\Users\user\Projects\basic-API\web-api\wpf-ui\Images\transparent-park.png" Margin="405,327,-32,-41" Grid.Row="1" Grid.RowSpan="2" />
     </Grid>
 </Page>

@@ -4,7 +4,6 @@ using Models;
 using Models.Complaints;
 using Responses = Models.Complaints.Responses;
 using Requests = Models.Complaints.Requests;
-using Models.Complaints.Responses;
 
 namespace neighborhood_api.Controllers
 {
@@ -12,11 +11,11 @@ namespace neighborhood_api.Controllers
     {
         [Route("test/json")]
         [HttpGet]
-        public async Task<ResponseStatus<short?>> TestHttpConnection()
+        public async Task<ResponseStatus<object?>> TestHttpConnection()
         {
             await Task.Delay(0);
 
-            return new ResponseStatus<short?>()
+            return new ResponseStatus<object?>()
             {
                 Code = 200,
                 Success = true,
@@ -26,59 +25,62 @@ namespace neighborhood_api.Controllers
 
         [Route("complaint/create")]
         [HttpPost]
-        public async Task<ResponseStatus<CreateComplaintStatus>> CreateNewComplaintAsync([FromBody]Requests.CreateComplaint requestBody, [FromServices]ComplaintService complaintService)
+        public async Task<ResponseStatus<Responses.CreateComplaint>> CreateNewComplaintAsync([FromBody]Requests.CreateComplaint requestBody, [FromServices]ComplaintService complaintService)
         {
             string serviceResult = await complaintService.CreateNewComplaintAsync(requestBody);
             bool serviceSuccess = !string.IsNullOrEmpty(serviceResult);
-            return new ResponseStatus<CreateComplaintStatus>()
+            return new ResponseStatus<Responses.CreateComplaint>()
             {
                 Code = serviceSuccess ? 200 : 403,
                 Message = serviceSuccess ? "Successfully created new complaint" : "Insertion Failed",
                 Success = serviceSuccess,
-                Data = new CreateComplaintStatus { Id = serviceResult }
+                Data = new Responses.CreateComplaint { Id = serviceResult }
             };
         }
 
         [Route("complaint/update/data")]
         [HttpPost]
-        public async Task<ResponseStatus<short?>> UpdateComplaintDataByComplaintIdAsync([FromBody]Requests.UpdateComplaint requestBody, [FromServices]ComplaintService complaintService)
+        public async Task<ResponseStatus<object?>> UpdateComplaintDataByComplaintIdAsync([FromBody]Requests.UpdateComplaint requestBody, [FromServices]ComplaintService complaintService)
         {
             bool serviceResponse = await complaintService.UpdateComplaintDataByComplaintIdAsync(requestBody);
 
-            return new ResponseStatus<short?>()
+            return new ResponseStatus<object?>()
             {
                 Code = serviceResponse ? 200 : 403,
-                Message = serviceResponse ? "Successfully updated" : "Update failed"
+                Message = serviceResponse ? "Successfully updated" : "Update failed",
+                Success = serviceResponse
             };
         }
 
         [Route("complaint/update/status")]
         [HttpPost]
-        public async Task<ResponseStatus<UpdatedStatus>> UpdateComplaintStatusByComplaintId([FromBody]Requests.UpdateComplaintStatus requestBody, [FromServices]ComplaintService complaintService)
+        public async Task<ResponseStatus<Responses.UpdatedStatus>> UpdateComplaintStatusByComplaintId([FromBody]Requests.UpdateComplaintStatus requestBody, [FromServices]ComplaintService complaintService)
         {
             DateTime dateTime = DateTime.UtcNow;
 
             bool serviceResponse = await complaintService.UpdateComplaintStatusByComplaintIdAsync(requestBody, dateTime);
 
-            return new ResponseStatus<UpdatedStatus>()
+            return new ResponseStatus<Responses.UpdatedStatus>()
             {
                 Code = serviceResponse ? 200 : 403,
                 Message = serviceResponse ? "Success" : "Update failed",
-                Data = new UpdatedStatus(dateTime)
+                Success = serviceResponse,
+                Data = new Responses.UpdatedStatus(dateTime)
             };
         }
 
         [Route("complaint/read/all/bydate")]
         [HttpGet]
-        public async Task<ResponseStatus<ComplaintList>> ReadAllComplaintsByDate([FromServices]ComplaintService complaintService)
+        public async Task<ResponseStatus<Responses.ComplaintList>> ReadAllComplaintsByDate([FromServices]ComplaintService complaintService)
         {
             List<Complaint>? serviceResponse = await complaintService.ReadAllComplaintsByDateAsync();
 
-            return new ResponseStatus<ComplaintList>()
+            return new ResponseStatus<Responses.ComplaintList>()
             {
                 Code = serviceResponse is not null ? 200 : 403,
                 Message = serviceResponse is not null ? "Successfully retrieved complaints" : "Read Failed",
-                Data = new ComplaintList()
+                Success = serviceResponse is not null,
+                Data = new Responses.ComplaintList()
                 {
                     Total = serviceResponse?.Count,
                     Complaints = serviceResponse ?? null
@@ -88,7 +90,7 @@ namespace neighborhood_api.Controllers
 
         [Route("complaint/read/search")]
         [HttpGet]
-        public async Task<ResponseStatus<ComplaintList>> ReadSearchComplaintByPersonName([FromQuery]string personName, [FromServices]ComplaintService complaintService)
+        public async Task<ResponseStatus<Responses.ComplaintList>> ReadSearchComplaintByPersonName([FromQuery]string personName, [FromServices]ComplaintService complaintService)
         {
             List<Complaint>? serviceResponse = await complaintService.ReadSearchComplaintByPersonName(personName);
 
@@ -96,7 +98,8 @@ namespace neighborhood_api.Controllers
             {
                 Code = serviceResponse is not null ? 200 : 403,
                 Message = serviceResponse is not null ? "Successfully searched complaints" : "Search failed",
-                Data = new ComplaintList()
+                Success = serviceResponse is not null,
+                Data = new Responses.ComplaintList()
                 {
                     Total = serviceResponse?.Count,
                     Complaints = serviceResponse ?? null

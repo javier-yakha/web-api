@@ -48,7 +48,7 @@
                     </Button.Background>
                 </Button>
             </StackPanel>
-            <Frame Grid.Column="1" x:Name="ContentFrame" Height="400" Width="400" Margin="0,38,310,162" NavigationUIVisibility="Hidden" HorizontalAlignment="Right" Grid.RowSpan="2" />
+            <Frame Grid.Column="1" x:Name="ContentFrame" Height="400" Width="450" Margin="0,10,270,190" NavigationUIVisibility="Hidden" HorizontalAlignment="Right" Grid.RowSpan="2" />
             <Image Source="C:\Users\user\Projects\basic-API\web-api\wpf-ui\Images\transparent-park.png" Margin="410,167,68,102" Grid.Row="1" Grid.Column="1" />
         </Grid>
 

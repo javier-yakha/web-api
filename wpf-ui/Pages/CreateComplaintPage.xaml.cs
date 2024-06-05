@@ -1,21 +1,11 @@
-﻿using Models.Complaints.Requests;
-using Models.Complaints;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Net.Http;
 using System.Net.Http.Json;
+using Models;
+using Models.Complaints;
+using Requests = Models.Complaints.Requests;
+using Responses = Models.Complaints.Responses;
 
 namespace wpf_ui.Pages
 {
@@ -48,7 +38,7 @@ namespace wpf_ui.Pages
                 return;
             }
 
-            CreateComplaint complaint = new()
+            Requests.CreateComplaint complaint = new()
             {
                 PersonName = NameTextBox.Text,
                 PersonApartmentCode = ApartmentTextBox.Text,
@@ -134,13 +124,15 @@ namespace wpf_ui.Pages
             return sendStatus;
         }
 
-        private async Task<bool> CreateComplaintAsync(CreateComplaint complaint)
+        private async Task<bool> CreateComplaintAsync(Requests.CreateComplaint complaint)
         {
             try
             {
-                var resp = await Client.PostAsJsonAsync("complaint/create", complaint);
+                var response = await Client.PostAsJsonAsync("complaint/create", complaint);
 
-                return resp is not null && resp.IsSuccessStatusCode;
+                ResponseStatus<Responses.CreateComplaint>? content = await response.Content.ReadFromJsonAsync<ResponseStatus<Responses.CreateComplaint>>();
+
+                return content is not null && content.Success;
             }
             catch (Exception e)
             {
