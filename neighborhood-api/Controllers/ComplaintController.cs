@@ -19,6 +19,7 @@ namespace neighborhood_api.Controllers
             return new ResponseStatus<short?>()
             {
                 Code = 200,
+                Success = true,
                 Message = "Connection Established"
             };
         }
@@ -28,11 +29,12 @@ namespace neighborhood_api.Controllers
         public async Task<ResponseStatus<CreateComplaintStatus>> CreateNewComplaintAsync([FromBody]Requests.CreateComplaint requestBody, [FromServices]ComplaintService complaintService)
         {
             string serviceResult = await complaintService.CreateNewComplaintAsync(requestBody);
-
+            bool serviceSuccess = !string.IsNullOrEmpty(serviceResult);
             return new ResponseStatus<CreateComplaintStatus>()
             {
-                Code = !string.IsNullOrEmpty(serviceResult) ? 200 : 403,
-                Message = !string.IsNullOrEmpty(serviceResult) ? "Successfully created new complaint" : "Insertion Failed",
+                Code = serviceSuccess ? 200 : 403,
+                Message = serviceSuccess ? "Successfully created new complaint" : "Insertion Failed",
+                Success = serviceSuccess,
                 Data = new CreateComplaintStatus { Id = serviceResult }
             };
         }
@@ -68,15 +70,15 @@ namespace neighborhood_api.Controllers
 
         [Route("complaint/read/all/bydate")]
         [HttpGet]
-        public async Task<ResponseStatus<ComplaintListStatus>> ReadAllComplaintsByDate([FromServices]ComplaintService complaintService)
+        public async Task<ResponseStatus<ComplaintList>> ReadAllComplaintsByDate([FromServices]ComplaintService complaintService)
         {
             List<Complaint>? serviceResponse = await complaintService.ReadAllComplaintsByDateAsync();
 
-            return new ResponseStatus<ComplaintListStatus>()
+            return new ResponseStatus<ComplaintList>()
             {
                 Code = serviceResponse is not null ? 200 : 403,
                 Message = serviceResponse is not null ? "Successfully retrieved complaints" : "Read Failed",
-                Data = new ComplaintListStatus()
+                Data = new ComplaintList()
                 {
                     Total = serviceResponse?.Count,
                     Complaints = serviceResponse ?? null
@@ -86,7 +88,7 @@ namespace neighborhood_api.Controllers
 
         [Route("complaint/read/search")]
         [HttpGet]
-        public async Task<ResponseStatus<ComplaintListStatus>> ReadSearchComplaintByPersonName([FromQuery]string personName, [FromServices]ComplaintService complaintService)
+        public async Task<ResponseStatus<ComplaintList>> ReadSearchComplaintByPersonName([FromQuery]string personName, [FromServices]ComplaintService complaintService)
         {
             List<Complaint>? serviceResponse = await complaintService.ReadSearchComplaintByPersonName(personName);
 
@@ -94,7 +96,7 @@ namespace neighborhood_api.Controllers
             {
                 Code = serviceResponse is not null ? 200 : 403,
                 Message = serviceResponse is not null ? "Successfully searched complaints" : "Search failed",
-                Data = new ComplaintListStatus()
+                Data = new ComplaintList()
                 {
                     Total = serviceResponse?.Count,
                     Complaints = serviceResponse ?? null

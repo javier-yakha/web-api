@@ -14,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Net.Http;
+using System.Net.Http.Json;
 
 namespace wpf_ui.Pages
 {
@@ -22,8 +24,10 @@ namespace wpf_ui.Pages
     /// </summary>
     public partial class CreateComplaintPage : Page
     {
-        public CreateComplaintPage()
+        private readonly HttpClient Client;
+        public CreateComplaintPage(HttpClient client)
         {
+            Client = client;
             InitializeComponent();
             foreach (Locations location in Enum.GetValues<Locations>())
             {
@@ -38,31 +42,33 @@ namespace wpf_ui.Pages
 
         private async void ComplainBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (ValidateForm())
+            if (!ValidateForm())
             {
-                MessageBox.Show("You have become complainer, the destroyer of fun.");
-                CreateComplaint? complaint = new()
-                {
-                    PersonName = NameTextBox.Text,
-                    PersonApartmentCode = ApartmentTextBox.Text,
-                    Location = (Locations)LocationComboBox.SelectedIndex,
-                    Category = (Categories)CategoryComboBox.SelectedIndex,
-                    Description = DescriptionTextBox.Text
-                };
-
-                await ApiCall(complaint);
-
-                NameTextBox.Text = "";
-                ApartmentTextBox.Text = "";
-                LocationComboBox.SelectedItem = null;
-                CategoryComboBox.SelectedItem = null;
-                DescriptionTextBox.Text = "";
-            }
-            else
-            {
-                MessageBox.Show("Please correctly fill the form.");
+                MessageBox.Show("Form Invalid, please fill it properly.");
+                return;
             }
 
+            CreateComplaint complaint = new()
+            {
+                PersonName = NameTextBox.Text,
+                PersonApartmentCode = ApartmentTextBox.Text,
+                Location = (Locations)LocationComboBox.SelectedIndex,
+                Category = (Categories)CategoryComboBox.SelectedIndex,
+                Description = DescriptionTextBox.Text
+            };
+
+            if (!await CreateComplaintAsync(complaint))
+            {
+                MessageBox.Show("Error updating the database, please try again.");
+                return;
+            }
+
+            MessageBox.Show("You have become complainer, the destroyer of fun.");
+            NameTextBox.Text = "";
+            ApartmentTextBox.Text = "";
+            LocationComboBox.SelectedItem = null;
+            CategoryComboBox.SelectedItem = null;
+            DescriptionTextBox.Text = "";
         }
         private bool ValidateForm()
         {
@@ -128,11 +134,20 @@ namespace wpf_ui.Pages
             return sendStatus;
         }
 
-        private async Task<bool> ApiCall(CreateComplaint complaint)
+        private async Task<bool> CreateComplaintAsync(CreateComplaint complaint)
         {
-            await Task.Delay(100);
-             
-            return true;
+            try
+            {
+                var resp = await Client.PostAsJsonAsync("complaint/create", complaint);
+
+                return resp is not null && resp.IsSuccessStatusCode;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+
+                return false;
+            }
         }
 
     }

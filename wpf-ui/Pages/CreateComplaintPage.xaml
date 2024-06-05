@@ -8,15 +8,6 @@
       d:DesignHeight="350" d:DesignWidth="400"
       Title="CreateComplaintPage">
     <Grid>
-        <Grid.Background>
-            <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                <GradientStop Color="#342255" Offset="0.0"/>
-                <GradientStop Color="#323295" Offset="1.0"/>
-            </LinearGradientBrush>
-        </Grid.Background>
-        <Grid.Clip>
-            <RectangleGeometry RadiusX="10" RadiusY="10" Rect="0,0,400,350" />
-        </Grid.Clip>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="250"/>
@@ -24,12 +15,7 @@
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0" Margin="0">
-            <Border.Background>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                    <GradientStop Color="#342255" Offset="0.0"/>
-                    <GradientStop Color="#323295" Offset="1.0"/>
-                </LinearGradientBrush>
-            </Border.Background>
+            
             <TextBlock Text="File Complaint" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Ivory" FontSize="32" FontWeight="Bold" Margin="20,0,0,0"/>
         </Border>
 

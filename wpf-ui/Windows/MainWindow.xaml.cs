@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,8 +21,12 @@ namespace wpf_ui
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly HttpClient Client = new();
+        CreateComplaintPage? CreateComplaintView;
+        SeeAllComplaintsPage? SeeAllComplaintsView;
         public MainWindow()
         {
+            Client.BaseAddress = new Uri("https://localhost:44381");
             InitializeComponent();
         }
 
@@ -49,13 +54,18 @@ namespace wpf_ui
                     ContentFrame.Navigate(null);
                     break;
                 case "NewComplaintTab":
-                    ContentFrame.Navigate(new CreateComplaintPage());
+                    CreateComplaintView = CreateComplaintView ?? new CreateComplaintPage(Client);
+                    ContentFrame.Navigate(CreateComplaintView);
                     break;
                 case "SeeAllTab":
+                    SeeAllComplaintsView = SeeAllComplaintsView ?? new SeeAllComplaintsPage(Client);
+                    ContentFrame.Navigate(SeeAllComplaintsView);
                     break;
                 case "SearchTab":
+                    ContentFrame.Navigate(null);
                     break;
                 default:
+                    ContentFrame.Navigate(null);
                     break;
             }
 
