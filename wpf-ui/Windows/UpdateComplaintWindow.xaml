@@ -1,20 +1,25 @@
-﻿<Page x:Class="wpf_ui.Pages.CreateComplaintPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:wpf_ui.Pages"
-      mc:Ignorable="d" 
-      d:DesignHeight="400" d:DesignWidth="500"
-      Title="CreateComplaintPage">
+﻿<Window x:Class="wpf_ui.Windows.UpdateComplaintWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:wpf_ui.Windows"
+        mc:Ignorable="d"
+        Title="UpdateComplaintWindow" Height="450" Width="450">
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                <GradientStop Color="#342255" Offset="0.0"/>
+                <GradientStop Color="#323295" Offset="1.0"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="250"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="File Complaint" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Ivory" FontSize="28" FontWeight="Bold" Margin="20,0,0,0"/>
+        <TextBlock Grid.Row="0" Text="Update Complaint" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Ivory" FontSize="28" FontWeight="Bold" Margin="20,0,0,0"/>
 
         <Grid Grid.Row="1"  Margin="15,5,15,0">
             <Grid.ColumnDefinitions>
@@ -25,7 +30,6 @@
             <StackPanel Grid.Column="0">
                 <TextBlock Text="Issuer Name" Foreground="Ivory" FontSize="15" FontWeight="Bold" Margin="20,1,0,0" Height="19" />
                 <Label Style="{DynamicResource ErrorLabel}" x:Name="NameErrorLabel" />
-                
                 <TextBlock Text="Issuer Apartment" Foreground="Ivory" FontSize="15" FontWeight="Bold" Margin="20,1,0,0" Height="19"/>
                 <Label Style="{DynamicResource ErrorLabel}" x:Name="ApartmentErrorLabel"/>
                 <TextBlock Text="Location" Foreground="Ivory" FontSize="15" FontWeight="Bold" Margin="20,1,0,0" Height="19"/>
@@ -45,7 +49,7 @@
             </StackPanel>
         </Grid>
 
-        <Button x:Name="ComplainBtn" Grid.Row="2" Content="Submit" Foreground="Ivory" FontSize="22" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="90">
+        <Button  Grid.Row="2" Click="UpdateBtn" Content="Submit Update" Foreground="Ivory" FontSize="22" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="200">
             <Button.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                     <GradientStop Color="#f00b33" Offset="0.0" />
@@ -54,4 +58,4 @@
             </Button.Background>
         </Button>
     </Grid>
-</Page>
+</Window>

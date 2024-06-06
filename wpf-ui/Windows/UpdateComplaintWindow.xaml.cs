@@ -1,31 +1,38 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Net.Http.Json;
+using System.Windows;
 using Models;
 using Models.Complaints;
 using Requests = Models.Complaints.Requests;
 using Responses = Models.Complaints.Responses;
 
-namespace wpf_ui.Pages
+namespace wpf_ui.Windows
 {
     /// <summary>
-    /// Interaction logic for CreateComplaintPage.xaml
+    /// Interaction logic for UpdateComplaintWindow.xaml
     /// </summary>
-    public partial class CreateComplaintPage : Page
+    public partial class UpdateComplaintWindow : Window
     {
-        private readonly HttpClient Client;
-        public CreateComplaintPage(HttpClient client)
+        private HttpClient Client;
+        private readonly string Id;
+        public UpdateComplaintWindow(HttpClient client, Complaint complaint)
         {
             Client = client;
+            Id = complaint.Id;
+
             InitializeComponent();
+
             LocationComboBox.ItemsSource = Enum.GetValues<Locations>();
             CategoryComboBox.ItemsSource = Enum.GetValues<Categories>();
-            
-            ComplainBtn.Click += ComplainBtn_Click;
+
+            NameTextBox.Text = complaint.PersonName;
+            ApartmentTextBox.Text = complaint.PersonApartmentCode;
+            LocationComboBox.SelectedItem = complaint.Location;
+            CategoryComboBox.SelectedItem = complaint.Category;
+            DescriptionTextBox.Text = complaint.Description;
         }
 
-        private async void ComplainBtn_Click(object sender, RoutedEventArgs e)
+        private async void UpdateBtn(object sender, RoutedEventArgs e)
         {
             ClearErrorLabels();
 
@@ -36,11 +43,11 @@ namespace wpf_ui.Pages
                 return;
             }
 
-            if (await CreateComplaintAsync())
+            if (await UpdateComplaintAsync())
             {
                 ClearForm();
-                MessageBox.Show("You have become complainer, the destroyer of fun.");
-
+                MessageBox.Show("Complain once, shame on them. Complain twice, shame on you.");
+                this.Close();
                 return;
             }
 
@@ -114,10 +121,11 @@ namespace wpf_ui.Pages
             return sendStatus;
         }
 
-        private Requests.CreateComplaint GetFormData()
+        private Requests.UpdateComplaint GetFormData()
         {
-            return new Requests.CreateComplaint()
+            return new Requests.UpdateComplaint()
             {
+                Id = this.Id,
                 PersonName = NameTextBox.Text,
                 PersonApartmentCode = ApartmentTextBox.Text,
                 Location = (Locations)LocationComboBox.SelectedIndex,
@@ -126,14 +134,14 @@ namespace wpf_ui.Pages
             };
         }
 
-        private async Task<bool> CreateComplaintAsync()
+        private async Task<bool> UpdateComplaintAsync()
         {
-            Requests.CreateComplaint complaint = GetFormData();
+            Requests.UpdateComplaint complaint = GetFormData();
             try
             {
-                var response = await Client.PostAsJsonAsync("complaint/create", complaint);
+                var response = await Client.PostAsJsonAsync("complaint/update/data", complaint);
 
-                ResponseStatus<Responses.CreateComplaint>? content = await response.Content.ReadFromJsonAsync<ResponseStatus<Responses.CreateComplaint>>();
+                ResponseStatus<Responses.UpdatedStatus>? content = await response.Content.ReadFromJsonAsync<ResponseStatus<Responses.UpdatedStatus>>();
 
                 return content is not null && content.Success;
             }
@@ -154,6 +162,6 @@ namespace wpf_ui.Pages
             DescriptionTextBox.Text = "";
         }
 
-    }
 
+    }
 }

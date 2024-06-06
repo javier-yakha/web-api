@@ -5,14 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:wpf_ui"
         mc:Ignorable="d"
-        Title="ComplaintDetailsWindow" Height="600" Width="500"
-        WindowStyle="None"
+        Title="" Height="500" Width="450"
+        WindowStyle="SingleBorderWindow"
         ResizeMode="NoResize"
         Background="Transparent"
-        AllowsTransparency="True"
         >
 
-    <Grid  MouseDown="Grid_MouseDown">
+    <Grid  x:Name="mainGrid" MouseDown="Grid_MouseDown">
         <Grid.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                 <GradientStop Color="#342255" Offset="0.0"/>
@@ -23,7 +22,7 @@
             <RectangleGeometry RadiusX="10" RadiusY="10" Rect="0,0,500,600" />
         </Grid.Clip>
         <Grid.RowDefinitions>
-            <RowDefinition Height="80"/>
+            <RowDefinition Height="50"/>
             <RowDefinition />
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
@@ -35,10 +34,10 @@
                     <GradientStop Color="#323295" Offset="1.0"/>
                 </LinearGradientBrush>
             </Border.Background>
-            <TextBlock Text="Details" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Ivory" FontSize="32" FontWeight="Bold" Margin="0,0,0,0"/>
+            <TextBlock Text="Details" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Ivory" FontSize="28" FontWeight="Bold" Margin="0,0,0,0"/>
         </Border>
 
-        <Grid x:Name="mainGrid" Grid.Row="1" Margin="15,25,15,0">
+        <Grid Grid.Row="1" Margin="15,5,15,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="140" />
                 <ColumnDefinition  Width="*"/>
@@ -49,7 +48,7 @@
                 <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
-                <RowDefinition />
+                <RowDefinition Height="80" />
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
@@ -72,7 +71,7 @@
             <TextBlock Grid.Column="1" Grid.Row="7" Text="{Binding LastUpdated}" VerticalAlignment="Center" Foreground="Ivory" FontSize="12" />
         </Grid>
 
-        <Button Click="Exit_Btn" Grid.Row="2" Command="" Content="Exit" Foreground="Ivory" FontSize="26" FontWeight="Black" FontFamily="SimSun" HorizontalAlignment="Center" VerticalAlignment="Center" Height="65" Width="200">
+        <Button Click="UpdateBtn" Grid.Row="2" Content="Update" Foreground="Ivory" FontSize="26" FontWeight="Black" FontFamily="SimSun" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="160">
             <Button.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                     <GradientStop Color="#f00b33" Offset="0.0" />

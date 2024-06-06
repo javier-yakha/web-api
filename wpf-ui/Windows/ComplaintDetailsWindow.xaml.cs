@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Net.Http;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -10,6 +11,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Models.Complaints;
 using Models.Complaints.Requests;
+using wpf_ui.Windows;
 
 namespace wpf_ui
 {
@@ -18,10 +20,14 @@ namespace wpf_ui
     /// </summary>
     public partial class ComplaintDetailsWindow : Window
     {
-        public ComplaintDetailsWindow(Complaint complaint)
+        private HttpClient Client;
+        private Complaint complaint;
+        public ComplaintDetailsWindow(HttpClient client, Complaint complaint)
         {
+            Client = client;
             InitializeComponent();
 
+            this.complaint = complaint;
             mainGrid.DataContext = complaint;
         }
 
@@ -34,9 +40,13 @@ namespace wpf_ui
             }
         }
 
-        private void Exit_Btn(object sender, RoutedEventArgs e)
+        private void UpdateBtn(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            if (complaint != null)
+            {
+                this.Close();
+                (new UpdateComplaintWindow(Client, complaint)).Show();
+            }
         }
     }
 }

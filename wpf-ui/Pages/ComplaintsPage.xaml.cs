@@ -65,7 +65,7 @@ namespace wpf_ui.Pages
             {
                 detailsWindow.Close();
             }
-            detailsWindow = new ComplaintDetailsWindow(complaint);
+            detailsWindow = new ComplaintDetailsWindow(Client, complaint);
             detailsWindow.Show();
         }
     }

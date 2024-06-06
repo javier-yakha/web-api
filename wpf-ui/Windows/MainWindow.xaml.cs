@@ -31,7 +31,6 @@ namespace wpf_ui
 
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Bye!");
             this.Close();
         }
 
