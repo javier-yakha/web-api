@@ -35,7 +35,7 @@
             <TextBlock Style="{StaticResource TableTextBlock}" FontSize="10"  FontWeight="Black" Width="50" Grid.Column="5" Text="Details" />
     </Grid>
     <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Hidden" CanContentScroll="True">
-        <ItemsControl  x:Name="ComplaintsList" >
+        <ItemsControl x:Name="ComplaintsList" >
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                      <Grid Background="Red" >

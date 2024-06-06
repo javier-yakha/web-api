@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿    using Microsoft.AspNetCore.Mvc;
 using neighborhood_api.DataServices;
 using Models;
 using Models.Complaints;
@@ -94,7 +94,7 @@ namespace neighborhood_api.Controllers
         {
             List<Complaint>? serviceResponse = await complaintService.ReadSearchComplaintByPersonName(personName);
 
-            return new()
+            return new ResponseStatus<Responses.ComplaintList>()
             {
                 Code = serviceResponse is not null ? 200 : 403,
                 Message = serviceResponse is not null ? "Successfully searched complaints" : "Search failed",

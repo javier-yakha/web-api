@@ -59,7 +59,7 @@ namespace wpf_ui
                     ContentFrame.Navigate(CreateComplaintView);
                     break;
                 case "SearchTab":
-                    ContentFrame.Navigate(null);
+                    ContentFrame.Navigate(new SearchComplaintPage(Client));
                     break;
                 default:
                     ContentFrame.Navigate(null);

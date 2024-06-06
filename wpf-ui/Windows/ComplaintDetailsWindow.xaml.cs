@@ -31,7 +31,6 @@ namespace wpf_ui
             mainGrid.DataContext = complaint;
         }
 
-
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
