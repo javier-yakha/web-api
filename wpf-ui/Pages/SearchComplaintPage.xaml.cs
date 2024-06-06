@@ -34,26 +34,6 @@ namespace wpf_ui.Pages
             InitializeComponent();
         }
 
-
-        private async Task SearchComplaintsAsync(string name)
-        {
-            try
-            {
-                var response = await Client.PostAsJsonAsync("complaint/read/search/", name);
-                ResponseStatus<Responses.ComplaintList>? content = await response.Content.ReadFromJsonAsync<ResponseStatus<Responses.ComplaintList>>();
-
-                if (content is not null && content.Data is not null && content.Success && content.Data.Complaints is not null)
-                {
-                    complaints = content.Data.Complaints;
-                    ComplaintsList.ItemsSource = content.Data.Complaints;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
-
         private void DetailsBtnClick(object sender, RoutedEventArgs e)
         {
             var btn = (Button)sender;
@@ -65,6 +45,33 @@ namespace wpf_ui.Pages
             }
             detailsWindow = new ComplaintDetailsWindow(Client, complaint);
             detailsWindow.Show();
+        }
+
+        private async void Search_Click(object sender, RoutedEventArgs e)
+        {
+            var query = SearchBar.Text;
+            if (!string.IsNullOrEmpty(query))
+            {
+                await SearchComplaintsAsync(query);
+            }
+        }
+
+        private async Task SearchComplaintsAsync(string name)
+        {
+            try
+            {
+                var response = await Client.GetFromJsonAsync<ResponseStatus<Responses.ComplaintList>>($"complaint/read/search?personName={name}");
+
+                if (response is not null && response.Data is not null && response.Success && response.Data.Complaints is not null)
+                {
+                    complaints = response.Data.Complaints;
+                    ComplaintsList.ItemsSource = response.Data.Complaints;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

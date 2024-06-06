@@ -61,7 +61,7 @@
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                                     <GradientStop Color="#342255" Offset="0.0" />
                                     <GradientStop Color="#323295" Offset="1.0" />
-                                </LinearGradientBrush>    
+                                </LinearGradientBrush>
                             </Button.Background>
                         </Button>
                     </Grid>
