@@ -26,17 +26,17 @@ namespace wpf_ui.Pages
     public partial class ComplaintsPage : Page
     {
         private readonly HttpClient Client;
-        List<Complaint> complaints = [];
+        ComplaintDetailsWindow detailsWindow;
+        public List<Complaint> complaints = [];
         public ComplaintsPage(HttpClient client)
         {
             Client = client;
-             
+
             LoadComplaintsAsync();
 
             InitializeComponent();
-            
-
         }
+            
 
         private async Task LoadComplaintsAsync()
         {
@@ -46,6 +46,7 @@ namespace wpf_ui.Pages
 
                 if (response is not null && response.Data is not null && response.Success && response.Data.Complaints is not null)
                 {
+                    complaints = response.Data.Complaints;
                     ComplaintsList.ItemsSource = response.Data.Complaints;
                 }
             }
@@ -57,7 +58,15 @@ namespace wpf_ui.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            var btn = (Button)sender;
+            Complaint complaint = (Complaint)btn.CommandParameter;
 
+            if (detailsWindow is not null)
+            {
+                detailsWindow.Close();
+            }
+            detailsWindow = new ComplaintDetailsWindow(complaint);
+            detailsWindow.Show();
         }
     }
 }

@@ -56,7 +56,7 @@
                         <TextBlock Style="{StaticResource TableTextBlock}" Width="65" Grid.Column="2" Text="{Binding Location}" />
                         <TextBlock Style="{StaticResource TableTextBlock}" Width="65" Grid.Column="3" Text="{Binding Category}" />
                         <TextBlock Style="{StaticResource TableTextBlock}" Width="140" Grid.Column="4" Text="{Binding DateActivated, StringFormat=\{0:dd / MMMM / yyy - HH:mm\}}" />
-                        <Button Width="50" Height="31" Grid.Column="5" Content="More" Foreground="Ivory" Click="Button_Click">
+                        <Button Width="50" Height="31" Grid.Column="5" Content="More" Foreground="Ivory" Click="Button_Click" CommandParameter="{Binding}">
                             <Button.Background>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                                     <GradientStop Color="#342255" Offset="0.0" />
