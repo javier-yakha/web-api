@@ -23,7 +23,6 @@ namespace wpf_ui
     {
         private readonly HttpClient Client = new();
         CreateComplaintPage? CreateComplaintView;
-        SeeAllComplaintsPage? SeeAllComplaintsView;
         public MainWindow()
         {
             Client.BaseAddress = new Uri("https://localhost:44381");
@@ -53,13 +52,12 @@ namespace wpf_ui
                 case "HomeTab":
                     ContentFrame.Navigate(null);
                     break;
+                case "ComplaintsTab":
+                    ContentFrame.Navigate(new ComplaintsPage(Client));
+                    break;
                 case "NewComplaintTab":
                     CreateComplaintView = CreateComplaintView ?? new CreateComplaintPage(Client);
                     ContentFrame.Navigate(CreateComplaintView);
-                    break;
-                case "SeeAllTab":
-                    SeeAllComplaintsView = SeeAllComplaintsView ?? new SeeAllComplaintsPage(Client);
-                    ContentFrame.Navigate(SeeAllComplaintsView);
                     break;
                 case "SearchTab":
                     ContentFrame.Navigate(null);

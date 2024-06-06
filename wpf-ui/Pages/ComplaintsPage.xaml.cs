@@ -23,36 +23,41 @@ namespace wpf_ui.Pages
     /// <summary>
     /// Interaction logic for SeeAllComplaintsPage.xaml
     /// </summary>
-    public partial class SeeAllComplaintsPage : Page
+    public partial class ComplaintsPage : Page
     {
         private readonly HttpClient Client;
-        public SeeAllComplaintsPage(HttpClient client)
+        List<Complaint> complaints = [];
+        public ComplaintsPage(HttpClient client)
         {
             Client = client;
+             
+            LoadComplaintsAsync();
+
             InitializeComponent();
+            
+
         }
 
-        private async Task<bool> GetAllComplaintsAsync()
+        private async Task LoadComplaintsAsync()
         {
             try
             {
                 ResponseStatus<ComplaintList>? response = await Client.GetFromJsonAsync<ResponseStatus<ComplaintList>>("complaint/read/all/bydate");
 
-                if (response is not null && response.Success)
+                if (response is not null && response.Data is not null && response.Success && response.Data.Complaints is not null)
                 {
-                    MessageBox.Show(response.Data?.Total.ToString());
-
-                    return true;
+                    ComplaintsList.ItemsSource = response.Data.Complaints;
                 }
-
-                return false;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-
-                return false;
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

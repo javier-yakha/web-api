@@ -32,43 +32,38 @@ namespace wpf_ui.Pages
 
         private async void ComplainBtn_Click(object sender, RoutedEventArgs e)
         {
+            ClearErrorLabels();
+
             if (!ValidateForm())
             {
                 MessageBox.Show("Form Invalid, please fill it properly.");
+
                 return;
             }
 
-            Requests.CreateComplaint complaint = new()
+            if (await CreateComplaintAsync())
             {
-                PersonName = NameTextBox.Text,
-                PersonApartmentCode = ApartmentTextBox.Text,
-                Location = (Locations)LocationComboBox.SelectedIndex,
-                Category = (Categories)CategoryComboBox.SelectedIndex,
-                Description = DescriptionTextBox.Text
-            };
+                ClearForm();
+                MessageBox.Show("You have become complainer, the destroyer of fun.");
 
-            if (!await CreateComplaintAsync(complaint))
-            {
-                MessageBox.Show("Error updating the database, please try again.");
                 return;
             }
 
-            MessageBox.Show("You have become complainer, the destroyer of fun.");
-            NameTextBox.Text = "";
-            ApartmentTextBox.Text = "";
-            LocationComboBox.SelectedItem = null;
-            CategoryComboBox.SelectedItem = null;
-            DescriptionTextBox.Text = "";
+            MessageBox.Show("Error updating the database, please try again.");
         }
-        private bool ValidateForm()
-        {
-            bool sendStatus = true;
 
+        private void ClearErrorLabels()
+        {
             NameErrorLabel.Content = "";
             ApartmentErrorLabel.Content = "";
             LocationErrorLabel.Content = "";
             CategoryErrorLabel.Content = "";
             DescriptionErrorLabel.Content = "";
+        }
+
+        private bool ValidateForm()
+        {
+            bool sendStatus = true;
 
             string name = NameTextBox.Text;
             string apartment = ApartmentTextBox.Text;
@@ -124,8 +119,21 @@ namespace wpf_ui.Pages
             return sendStatus;
         }
 
-        private async Task<bool> CreateComplaintAsync(Requests.CreateComplaint complaint)
+        private Requests.CreateComplaint GetFormData()
         {
+            return new Requests.CreateComplaint()
+            {
+                PersonName = NameTextBox.Text,
+                PersonApartmentCode = ApartmentTextBox.Text,
+                Location = (Locations)LocationComboBox.SelectedIndex,
+                Category = (Categories)CategoryComboBox.SelectedIndex,
+                Description = DescriptionTextBox.Text
+            };
+        }
+
+        private async Task<bool> CreateComplaintAsync()
+        {
+            Requests.CreateComplaint complaint = GetFormData();
             try
             {
                 var response = await Client.PostAsJsonAsync("complaint/create", complaint);
@@ -140,6 +148,15 @@ namespace wpf_ui.Pages
 
                 return false;
             }
+        }
+
+        private void ClearForm()
+        {
+            NameTextBox.Text = "";
+            ApartmentTextBox.Text = "";
+            LocationComboBox.SelectedItem = null;
+            CategoryComboBox.SelectedItem = null;
+            DescriptionTextBox.Text = "";
         }
 
     }

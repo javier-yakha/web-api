@@ -9,6 +9,7 @@
                 <ResourceDictionary Source="Theme/NavbarButton.xaml" />
                 <ResourceDictionary Source="Theme/CustomSearchBar.xaml" />
                 <ResourceDictionary Source="Theme/ErrorLabel.xaml" />
+                <ResourceDictionary Source="Theme/TableTextBlock.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
